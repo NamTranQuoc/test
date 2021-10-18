@@ -1,0 +1,84 @@
+/**
+ *
+ * You can write your CSS code here; DO NOT touch the default JavaScript file
+ * because it will make it harder for you to update.
+ * 
+ */
+
+/*# sourceMappingURL=custom.css.map */
+
+.custom-css-001 {
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.custom-css-002 {
+    background-color: rgba(34, 34, 34, 0.5);
+    z-index: 999;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+}
+
+.custom-css-003 {
+    z-index: 1000;
+    width: 45%;
+}
+
+.custom-css-004 {
+    height: 700px;
+    overflow-y: scroll;
+}
+
+.custom-css-005 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 8px;
+}
+
+.custom-css-006 {
+    z-index: 900;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    margin: 10px;
+}
+
+.custom-css-007 {
+    border: 1px solid #000000;
+    border-radius:5px;
+    width: auto;
+    vertical-align: middle;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.custom-css-008 {
+    border-color: white;
+    padding-right: 0;
+    padding-left: 6px;
+    margin-right: 5px;
+}
+
+.custom-css-009 {
+    width: 20px;
+    height: 20px
+}
+
+.custom-css-010 {
+    border-color: white;
+    margin: auto;
+}
+
+.custom-css-011 {
+    z-index: 950;
+}
