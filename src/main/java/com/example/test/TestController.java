@@ -9,4 +9,9 @@ public class TestController {
     public String get() {
         return "đây là Nam";
     }
+
+    @GetMapping("/abc")
+    public String get1() {
+        return "ABC";
+    }
 }
