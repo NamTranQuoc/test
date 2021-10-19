@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: NamTranQuoc/test
+        uses: NamTranQuoc/test@master
 
       - name: Install and build
         run: npm install && npm run build
