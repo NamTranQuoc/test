@@ -1,17 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+import NextApp from './NextApp';
+import registerServiceWorker from './registerServiceWorker';
+// Add this import:
+import {AppContainer} from 'react-hot-loader';
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// Wrap the rendering in a function:
+const render = Component => {
+  ReactDOM.render(
+    // Wrap App inside AppContainer
+    <AppContainer>
+      <NextApp/>
+    </AppContainer>,
+    document.getElementById('root')
+  );
+};
+
+// Do this once
+registerServiceWorker();
+
+// Render once
+render(NextApp);
+
+// Webpack Hot Module Replacement API
+if (module.hot) {
+  module.hot.accept('./NextApp', () => {
+    render(NextApp);
+  });
+}
