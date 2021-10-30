@@ -7,7 +7,6 @@ import languageData from "../languageData";
 import SearchBox from "components/SearchBox";
 import UserInfo from "components/UserInfo";
 import AppNotification from "components/AppNotification";
-import MailNotification from "components/MailNotification";
 import {switchLanguage, toggleCollapsedSideNav} from "../../../appRedux/actions/Setting";
 
 import {TAB_SIZE} from "../../../constants/ThemeSetting";
@@ -146,16 +145,6 @@ class AboveHeader extends Component {
                   <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={<AppNotification/>}
                            trigger="click">
                     <span className="gx-pointer gx-d-block"><i className="icon icon-notification"/></span>
-                  </Popover>
-                </li>
-
-                <li className="gx-msg">
-                  <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
-                           content={<MailNotification/>} trigger="click">
-                <span className="gx-pointer gx-status-pos gx-d-block">
-                <i className="icon icon-chat-new"/>
-                <span className="gx-status gx-status-rtl gx-small gx-orange"/>
-                </span>
                   </Popover>
                 </li>
                 <li className="gx-language">
