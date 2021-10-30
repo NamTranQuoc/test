@@ -95,11 +95,11 @@ class App extends Component {
     }
     if (location.pathname === '/') {
       if (authUser === null) {
-        return ( <Redirect to={'/signin'}/> );
+        return (<Redirect to={'/signin'}/>);
       } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        return ( <Redirect to={'/sample'}/> );
+        return (<Redirect to={'/sample'}/>);
       } else {
-        return ( <Redirect to={initURL}/> );
+        return (<Redirect to={initURL}/>);
       }
     }
     this.setLayoutType(layoutType);

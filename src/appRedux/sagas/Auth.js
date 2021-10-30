@@ -24,38 +24,38 @@ import {
 } from "../actions/Auth";
 
 const createUserWithEmailPasswordRequest = async (email, password) =>
-  await  auth.createUserWithEmailAndPassword(email, password)
+  await auth.createUserWithEmailAndPassword(email, password)
     .then(authUser => authUser)
     .catch(error => error);
 
 const signInUserWithEmailPasswordRequest = async (email, password) =>
-  await  auth.signInWithEmailAndPassword(email, password)
+  await auth.signInWithEmailAndPassword(email, password)
     .then(authUser => authUser)
     .catch(error => error);
 
 const signOutRequest = async () =>
-  await  auth.signOut()
+  await auth.signOut()
     .then(authUser => authUser)
     .catch(error => error);
 
 
 const signInUserWithGoogleRequest = async () =>
-  await  auth.signInWithPopup(googleAuthProvider)
+  await auth.signInWithPopup(googleAuthProvider)
     .then(authUser => authUser)
     .catch(error => error);
 
 const signInUserWithFacebookRequest = async () =>
-  await  auth.signInWithPopup(facebookAuthProvider)
+  await auth.signInWithPopup(facebookAuthProvider)
     .then(authUser => authUser)
     .catch(error => error);
 
 const signInUserWithGithubRequest = async () =>
-  await  auth.signInWithPopup(githubAuthProvider)
+  await auth.signInWithPopup(githubAuthProvider)
     .then(authUser => authUser)
     .catch(error => error);
 
 const signInUserWithTwitterRequest = async () =>
-  await  auth.signInWithPopup(twitterAuthProvider)
+  await auth.signInWithPopup(twitterAuthProvider)
     .then(authUser => authUser)
     .catch(error => error);
 

@@ -1,31 +1,17 @@
 import React, {Component} from "react";
-import {Button, Dropdown, Icon, Layout, Menu, message, Popover} from 'antd';
+import {Layout, Popover} from 'antd';
 import {connect} from "react-redux";
 import CustomScrollbars from "util/CustomScrollbars";
 
 import languageData from "../languageData";
-import SearchBox from "components/SearchBox";
 import UserInfo from "components/UserInfo";
 import AppNotification from "components/AppNotification";
-import MailNotification from "components/MailNotification";
 import HorizontalNav from "../HorizontalNav";
 import {Link} from "react-router-dom";
 import {switchLanguage, toggleCollapsedSideNav} from "../../../appRedux/actions/Setting";
 import IntlMessages from "../../../util/IntlMessages";
 
 const {Header} = Layout;
-
-const menu = (
-  <Menu onClick={handleMenuClick}>
-    <Menu.Item key="1">Products</Menu.Item>
-    <Menu.Item key="2">Apps</Menu.Item>
-    <Menu.Item key="3">Blogs</Menu.Item>
-  </Menu>
-);
-
-function handleMenuClick(e) {
-  message.info('Click on menu item.');
-}
 
 class InsideHeader extends Component {
 
@@ -46,12 +32,6 @@ class InsideHeader extends Component {
         )}
       </ul>
     </CustomScrollbars>);
-
-  updateSearchChatUser = (evt) => {
-    this.setState({
-      searchText: evt.target.value,
-    });
-  };
 
 
   render() {
@@ -95,39 +75,10 @@ class InsideHeader extends Component {
                 <HorizontalNav/>
               </div>
               <ul className="gx-header-notifications gx-ml-auto">
-                <li className="gx-notify gx-notify-search">
-                  <Popover overlayClassName="gx-popover-horizantal"
-                           placement="bottomRight" content={
-                    <div className="gx-d-flex"><Dropdown overlay={menu}>
-                      <Button>
-                        Category <Icon type="down"/>
-                      </Button>
-                    </Dropdown>
-                      <SearchBox styleName="gx-popover-search-bar"
-                                 placeholder="Search in app..."
-                                 onChange={this.updateSearchChatUser.bind(this)}
-                                 value={this.state.searchText}/></div>
-                  } trigger="click">
-
-                    <span className="gx-pointer gx-d-block"><i className="icon icon-search-new"/></span>
-
-                  </Popover>
-                </li>
-
                 <li className="gx-notify">
                   <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={<AppNotification/>}
                            trigger="click">
                     <span className="gx-pointer gx-d-block"><i className="icon icon-notification"/></span>
-                  </Popover>
-                </li>
-
-                <li className="gx-msg">
-                  <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight"
-                           content={<MailNotification/>} trigger="click">
-                <span className="gx-pointer gx-status-pos gx-d-block">
-                <i className="icon icon-chat-new"/>
-                <span className="gx-status gx-status-rtl gx-small gx-orange"/>
-                </span>
                   </Popover>
                 </li>
                 <li className="gx-language">

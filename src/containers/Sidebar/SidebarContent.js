@@ -55,7 +55,7 @@ class SidebarContent extends Component {
                   <IntlMessages id="sidebar.dashboard"/></Link>
               </Menu.Item>
               <Menu.SubMenu key="managerUser"
-                       title={<IntlMessages id="sidebar.managerUser"/>}>
+                            title={<IntlMessages id="sidebar.managerUser"/>}>
                 <Menu.Item key="student">
                   <Link to="/student"><i className="icon icon-widgets"/>
                     <IntlMessages id="sidebar.managerUser.student"/></Link>

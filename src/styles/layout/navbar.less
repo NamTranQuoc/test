@@ -28,6 +28,7 @@
   &-submenu-title:active {
     background: @menu-item-active-bg;
   }
+
   &-item .icon {
     min-width: 14px;
     margin-right: 20px;
@@ -45,6 +46,7 @@
 
   &-item > a {
     color: @menu-item-color;
+
     &:hover {
       color: @menu-highlight-color;
     }
@@ -74,6 +76,7 @@
 
   &-item-selected {
     color: @menu-highlight-color;
+
     > a {
       color: @menu-item-color;
     }
@@ -97,6 +100,7 @@
       border-right: 0 none;
     }
   }
+
   &-vertical-right {
     border-left: @border-width-base @border-style-base @border-color-split;
   }
@@ -208,6 +212,7 @@
   &-vertical-left &-submenu-selected,
   &-vertical-right &-submenu-selected {
     color: @menu-highlight-color;
+
     > a {
       color: @menu-highlight-color;
     }
@@ -237,9 +242,11 @@
 
       > a {
         color: @menu-item-color;
+
         &:hover {
           color: @menu-highlight-color;
         }
+
         &:before {
           bottom: -2px;
         }
@@ -255,6 +262,7 @@
       &:not(:last-child) {
         margin-bottom: 0;
       }
+
       &:after {
         border-right: 3px @border-style-base @menu-highlight-color;
       }
@@ -331,9 +339,11 @@
     > .ant-menu-submenu > .ant-menu-submenu-title {
       left: 0;
       padding: 0 (@menu-collapsed-width - 16px) / 2 !important;
+
       .@{menu-prefix-cls}-submenu-arrow {
         display: none;
       }
+
       .icon {
         & + span {
           max-width: 0;
@@ -342,6 +352,7 @@
         }
       }
     }
+
     &-tooltip {
       & .icon {
         display: none;
@@ -385,9 +396,11 @@
   &-item-disabled,
   &-submenu-disabled {
     color: @disabled-color !important;
+
     > a {
       color: @disabled-color !important;
     }
+
     > .ant-menu-submenu-title {
       color: @disabled-color !important;
     }
@@ -412,6 +425,7 @@
   &-dark &-sub {
     color: @menu-dark-color;
     background: @menu-dark-bg;
+
     .ant-menu-submenu-title .ant-menu-submenu-arrow {
       &:after,
       &:before {
@@ -472,9 +486,11 @@
   &-dark &-submenu-title:hover,
   &-dark &-submenu-open &-submenu-open &-item > a:hover {
     color: @menu-dark-highlight-color;
+
     > a {
       color: @menu-dark-highlight-color;
     }
+
     > .ant-menu-submenu-title {
       > .ant-menu-submenu-arrow {
         &:after,
@@ -483,6 +499,7 @@
         }
       }
     }
+
     > .ant-menu-submenu-title:hover {
       > .ant-menu-submenu-arrow {
         &:after,
@@ -525,6 +542,7 @@
     > a {
       color: @disabled-color-dark !important;
     }
+
     > .ant-menu-submenu-title {
       color: @disabled-color-dark !important;
     }

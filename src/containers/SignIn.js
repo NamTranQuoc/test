@@ -4,14 +4,14 @@ import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
 import {
+  hideAuthLoader,
   hideMessage,
   showAuthLoader,
-  hideAuthLoader,
-  userSignInSuccess,
   userFacebookSignIn,
   userGithubSignIn,
   userGoogleSignIn,
   userSignIn,
+  userSignInSuccess,
   userTwitterSignIn
 } from "appRedux/actions/Auth";
 import IntlMessages from "util/IntlMessages";

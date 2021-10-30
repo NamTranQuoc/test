@@ -45,7 +45,7 @@ export class Sidebar extends Component {
       drawerStyle = "gx-collapsed-sidebar"
     }
     if ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR
-        || navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR) && width < TAB_SIZE) {
+      || navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR) && width < TAB_SIZE) {
       drawerStyle = "gx-collapsed-sidebar"
     }
     return (
