@@ -10,7 +10,6 @@ import MainApp from "./MainApp";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import {setInitUrl} from "appRedux/actions/Auth";
-import {onLayoutTypeChange, onNavStyleChange, setThemeType} from "appRedux/actions/Setting";
 
 import {
   LAYOUT_TYPE_BOXED,
@@ -130,4 +129,4 @@ const mapStateToProps = ({settings, auth}) => {
   const {authUser, initURL} = auth;
   return {locale, navStyle, themeType, layoutType, authUser, initURL}
 };
-export default connect(mapStateToProps, {setInitUrl, setThemeType, onNavStyleChange, onLayoutTypeChange})(App);
+export default connect(mapStateToProps, {setInitUrl})(App);

@@ -3,19 +3,9 @@ import {Button, Checkbox, Form, Icon, Input, message} from "antd";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {
-  hideAuthLoader,
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignIn,
-  userSignInSuccess,
-  userTwitterSignIn
-} from "appRedux/actions/Auth";
+import {hideAuthLoader, hideMessage, showAuthLoader, userSignIn, userSignInSuccess,} from "../appRedux/actions";
 import IntlMessages from "util/IntlMessages";
-import CircularProgress from "components/CircularProgress/index";
+import CircularProgress from "../components/CircularProgress";
 
 const FormItem = Form.Item;
 
@@ -159,9 +149,5 @@ export default connect(mapStateToProps, {
   hideMessage,
   hideAuthLoader,
   showAuthLoader,
-  userFacebookSignIn,
-  userGoogleSignIn,
-  userGithubSignIn,
   userSignInSuccess,
-  userTwitterSignIn
 })(WrappedNormalLoginForm);

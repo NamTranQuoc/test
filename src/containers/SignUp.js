@@ -3,19 +3,11 @@ import {Button, Checkbox, Form, Icon, Input} from "antd";
 import {Link} from "react-router-dom";
 
 import {connect} from "react-redux";
-import {
-  hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGithubSignIn,
-  userGoogleSignIn,
-  userSignUp,
-  userTwitterSignIn
-} from "appRedux/actions/Auth";
+import {hideMessage, showAuthLoader, userSignUp,} from "../appRedux/actions";
 
 import IntlMessages from "util/IntlMessages";
 import {message} from "antd/lib/index";
-import CircularProgress from "components/CircularProgress/index";
+import CircularProgress from "../components/CircularProgress";
 
 const FormItem = Form.Item;
 
@@ -171,9 +163,5 @@ const mapStateToProps = ({auth}) => {
 export default connect(mapStateToProps, {
   userSignUp,
   hideMessage,
-  showAuthLoader,
-  userFacebookSignIn,
-  userGoogleSignIn,
-  userGithubSignIn,
-  userTwitterSignIn
+  showAuthLoader
 })(WrappedSignUpForm);

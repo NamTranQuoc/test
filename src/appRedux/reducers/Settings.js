@@ -4,9 +4,7 @@ import {
   LAYOUT_TYPE_FULL,
   NAV_STYLE,
   NAV_STYLE_FIXED,
-  THEME_COLOR_SELECTION,
   THEME_COLOR_SELECTION_PRESET,
-  THEME_TYPE,
   THEME_TYPE_SEMI_DARK
 } from "../../constants/ThemeSetting";
 
@@ -41,6 +39,22 @@ const settings = (state = initialSettings, action) => {
         ...state,
         navCollapsed: action.navCollapsed
       };
+    case WINDOW_WIDTH:
+      return {
+        ...state,
+        width: action.width,
+      };
+    case NAV_STYLE:
+      return {
+        ...state,
+        navStyle: action.navStyle
+      };
+    case LAYOUT_TYPE:
+      return {
+        ...state,
+        layoutType: action.layoutType
+      };
+
     case SWITCH_LANGUAGE:
       return {
         ...state,
