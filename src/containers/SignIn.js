@@ -16,24 +16,16 @@ import {
 } from "appRedux/actions/Auth";
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "components/CircularProgress/index";
-import {login} from "../service/AuthService"
 
 const FormItem = Form.Item;
 
 class SignIn extends React.Component {
-
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.showAuthLoader();
-        login(values).then((Response) => {
-          if (Response.data.code !== -9999) {
-            this.props.userSignInSuccess(Response.data.payload);
-          } else {
-            this.props.hideAuthLoader();
-          }
-        })
+        this.props.userSignIn(values);
       }
     });
   };

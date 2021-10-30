@@ -22,6 +22,10 @@ import {
   userGoogleSignInSuccess,
   userTwitterSignInSuccess
 } from "../actions/Auth";
+import axios from "axios";
+import {host} from "../store/Host";
+
+const INSTRUCTOR_API_URL = `${host}/auth`;
 
 const createUserWithEmailPasswordRequest = async (email, password) =>
   await auth.createUserWithEmailAndPassword(email, password)
@@ -29,9 +33,11 @@ const createUserWithEmailPasswordRequest = async (email, password) =>
     .catch(error => error);
 
 const signInUserWithEmailPasswordRequest = async (email, password) =>
-  await auth.signInWithEmailAndPassword(email, password)
-    .then(authUser => authUser)
-    .catch(error => error);
+  await axios.post(`${INSTRUCTOR_API_URL}/login`, {
+    username: email,
+    password: password,
+  }).then(response => response)
+    .catch(error => error)
 
 const signOutRequest = async () =>
   await auth.signOut()
@@ -138,17 +144,16 @@ function* signInUserWithTwitter() {
 }
 
 function* signInUserWithEmailPassword({payload}) {
-  console.log("signInUserWithEmailPassword");
   const {email, password} = payload;
   try {
-    const signInUser = yield call(signInUserWithEmailPasswordRequest, email, password);
-    if (signInUser.message) {
-      yield put(showAuthMessage(signInUser.message));
+    const response = yield call(signInUserWithEmailPasswordRequest, email, password);
+    if (response.data.code !== 9999) {
+      yield put(showAuthMessage(response.data.message));
     } else {
-      localStorage.setItem('user_id', signInUser.user.uid);
-      yield put(userSignInSuccess(signInUser.user.uid));
+      yield put(userSignUpSuccess(response.data.payload));
     }
   } catch (error) {
+    console.log(error);
     yield put(showAuthMessage(error));
   }
 }
