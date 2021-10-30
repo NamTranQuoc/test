@@ -34,7 +34,7 @@ class SidebarContent extends Component {
   render() {
     const {themeType, navStyle, pathname} = this.props;
     const selectedKeys = pathname.substr(1);
-    const defaultOpenKeys = selectedKeys.split('/')[1];
+    const defaultOpenKeys = selectedKeys.split('/dashboard')[1];
     return (<Auxiliary>
 
         <SidebarLogo/>
@@ -55,21 +55,32 @@ class SidebarContent extends Component {
                   <IntlMessages id="sidebar.dashboard"/></Link>
               </Menu.Item>
               <Menu.SubMenu key="managerUser"
-                            title={<IntlMessages id="sidebar.managerUser"/>}>
+                            className={this.getNavStyleSubMenuClass(navStyle)}
+                            title={
+                              <span>
+                                <i className="icon icon-avatar"/>
+                                <IntlMessages id="sidebar.managerUser"/>
+                              </span>}>
                 <Menu.Item key="student">
-                  <Link to="/student"><i className="icon icon-widgets"/>
+                  <Link to="/student">
                     <IntlMessages id="sidebar.managerUser.student"/></Link>
                 </Menu.Item>
                 <Menu.Item key="teacher">
-                  <Link to="/teacher"><i className="icon icon-widgets"/>
+                  <Link to="/teacher">
                     <IntlMessages id="sidebar.managerUser.teacher"/></Link>
                 </Menu.Item>
                 <Menu.Item key="receptionist">
-                  <Link to="/receptionist"><i className="icon icon-widgets"/>
+                  <Link to="/receptionist">
                     <IntlMessages id="sidebar.managerUser.receptionist"/></Link>
                 </Menu.Item>
               </Menu.SubMenu>
-              <Menu.SubMenu key="managerStudy" title={<IntlMessages id="sidebar.managerStudy"/>}>
+              <Menu.SubMenu key="managerStudy"
+                            className={this.getNavStyleSubMenuClass(navStyle)}
+                            title={
+                              <span>
+                                <i className="icon icon-ckeditor"/>
+                                <IntlMessages id="sidebar.managerStudy"/>
+                              </span>}>
                 <Menu.Item key="courseCategory">
                   <Link to="/course-category">
                     <IntlMessages id="sidebar.managerStudy.courseCategory"/></Link>

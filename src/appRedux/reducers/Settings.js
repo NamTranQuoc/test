@@ -19,10 +19,10 @@ const initialSettings = {
   width: window.innerWidth,
   isDirectionRTL: false,
   locale: {
-    languageId: 'english',
-    locale: 'en',
-    name: 'English',
-    icon: 'us'
+    languageId: 'vietnam',
+    locale: 'vi',
+    name: 'Việt Nam',
+    icon: 'vn'
   }
 };
 

@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Welcome to Firebase Hosting</title><script defer="defer" src="/__/firebase/9.2.0/firebase-app-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-auth-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-database-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-firestore-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-functions-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-messaging-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-storage-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-analytics-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-remote-config-compat.js"></script><script defer="defer" src="/__/firebase/9.2.0/firebase-performance-compat.js"></script><script defer="defer" src="/__/firebase/init.js?useEmulator=true"></script><style media="screen">body{background:#eceff1;color:rgba(0,0,0,.87);font-family:Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0}#message{background:#fff;max-width:360px;margin:100px auto 16px;padding:32px 24px;border-radius:3px}#message h2{color:#ffa100;font-weight:700;font-size:16px;margin:0 0 8px}#message h1{font-size:22px;font-weight:300;color:rgba(0,0,0,.6);margin:0 0 16px}#message p{line-height:140%;margin:16px 0 24px;font-size:14px}#message a{display:block;text-align:center;background:#039be5;text-transform:uppercase;text-decoration:none;color:#fff;padding:16px;border-radius:4px}#message,#message a{box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24)}#load{color:rgba(0,0,0,.4);text-align:center;font-size:13px}@media (max-width:600px){#message,body{margin-top:0;background:#fff;box-shadow:none}body{border-top:16px solid #ffa100}}</style><link href="/static/css/2.19d9cb09.chunk.css" rel="stylesheet"><link href="/static/css/main.515f83ed.chunk.css" rel="stylesheet"></head><body><div id="message"><h2>Welcome</h2><h1>Firebase Hosting Setup Complete</h1><p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p><a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a></div><p id="load">Firebase SDK Loading&hellip;</p><script>document.addEventListener('DOMContentLoaded', function() {
+        const loadEl = document.querySelector('#load');
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+        // // The Firebase SDK is initialized and available here!
+        //
+        // firebase.auth().onAuthStateChanged(user => { });
+        // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+        // firebase.firestore().doc('/foo/bar').get().then(() => { });
+        // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+        // firebase.messaging().requestPermission().then(() => { });
+        // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+        // firebase.analytics(); // call to activate
+        // firebase.analytics().logEvent('tutorial_completed');
+        // firebase.performance(); // call to activate
+        //
+        // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+        try {
+          let app = firebase.app();
+          let features = [
+            'auth', 
+            'database', 
+            'firestore',
+            'functions',
+            'messaging', 
+            'storage', 
+            'analytics', 
+            'remoteConfig',
+            'performance',
+          ].filter(feature => typeof app[feature] === 'function');
+          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+        } catch (e) {
+          console.error(e);
+          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+        }
+      });</script><script>!function(a){function e(e){for(var r,t,n=e[0],o=e[1],u=e[2],i=0,c=[];i<n.length;i++)t=n[i],l[t]&&c.push(l[t][0]),l[t]=0;for(r in o)Object.prototype.hasOwnProperty.call(o,r)&&(a[r]=o[r]);for(d&&d(e);c.length;)c.shift()();return p.push.apply(p,u||[]),f()}function f(){for(var e,r=0;r<p.length;r++){for(var t=p[r],n=!0,o=1;o<t.length;o++){var u=t[o];0!==l[u]&&(n=!1)}n&&(p.splice(r--,1),e=s(s.s=t[0]))}return e}var t={},l={1:0},p=[];function s(e){if(t[e])return t[e].exports;var r=t[e]={i:e,l:!1,exports:{}};return a[e].call(r.exports,r,r.exports,s),r.l=!0,r.exports}s.e=function(u){var e=[],t=l[u];if(0!==t)if(t)e.push(t[2]);else{var r=new Promise(function(e,r){t=l[u]=[e,r]});e.push(t[2]=r);var n,i=document.createElement("script");i.charset="utf-8",i.timeout=120,s.nc&&i.setAttribute("nonce",s.nc),i.src=s.p+"static/js/"+({}[u]||u)+"."+{3:"8136e9ff",4:"c69c9822",5:"8ec99b95",6:"01687163",7:"2d8050c3",8:"809bfc64"}[u]+".chunk.js",n=function(e){i.onerror=i.onload=null,clearTimeout(c);var r=l[u];if(0!==r){if(r){var t=e&&("load"===e.type?"missing":e.type),n=e&&e.target&&e.target.src,o=new Error("Loading chunk "+u+" failed.\n("+t+": "+n+")");o.type=t,o.request=n,r[1](o)}l[u]=void 0}};var c=setTimeout(function(){n({type:"timeout",target:i})},12e4);i.onerror=i.onload=n,document.head.appendChild(i)}return Promise.all(e)},s.m=a,s.c=t,s.d=function(e,r,t){s.o(e,r)||Object.defineProperty(e,r,{enumerable:!0,get:t})},s.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},s.t=function(r,e){if(1&e&&(r=s(r)),8&e)return r;if(4&e&&"object"==typeof r&&r&&r.__esModule)return r;var t=Object.create(null);if(s.r(t),Object.defineProperty(t,"default",{enumerable:!0,value:r}),2&e&&"string"!=typeof r)for(var n in r)s.d(t,n,function(e){return r[e]}.bind(null,n));return t},s.n=function(e){var r=e&&e.__esModule?function(){return e.default}:function(){return e};return s.d(r,"a",r),r},s.o=function(e,r){return Object.prototype.hasOwnProperty.call(e,r)},s.p="/",s.oe=function(e){throw console.error(e),e};var r=window.webpackJsonp=window.webpackJsonp||[],n=r.push.bind(r);r.push=e,r=r.slice();for(var o=0;o<r.length;o++)e(r[o]);var d=n;f()}([])</script><script src="/static/js/2.d14111ff.chunk.js"></script><script src="/static/js/main.3487512f.chunk.js"></script></body></html>

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{1083:function(e,n,t){"use strict";t.r(n);var a=t(1),c=t.n(a);n.default=function(){return c.a.createElement("div",null,c.a.createElement("div",{className:"gx-d-flex justify-content-center"},c.a.createElement("h4",null,"CourseCategoryPage")))}}}]);
+//# sourceMappingURL=4.c69c9822.chunk.js.map

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{1080:function(e,n,t){"use strict";t.r(n);var a=t(1),c=t.n(a);n.default=function(){return c.a.createElement("div",null,c.a.createElement("div",{className:"gx-d-flex justify-content-center"},c.a.createElement("h4",null,"StudentPage")))}}}]);
+//# sourceMappingURL=7.2d8050c3.chunk.js.map
