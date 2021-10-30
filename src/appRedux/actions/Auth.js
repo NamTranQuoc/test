@@ -27,6 +27,7 @@ export const userSignUp = (user) => {
   };
 };
 export const userSignIn = (user) => {
+  console.log("userSignIn");
   return {
     type: SIGNIN_USER,
     payload: user

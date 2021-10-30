@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import {Layout, Popover} from "antd";
 import {Link} from "react-router-dom";
-
-import CustomScrollbars from "util/CustomScrollbars";
 import languageData from "./languageData";
 import {switchLanguage, toggleCollapsedSideNav} from "../../appRedux/actions/Setting";
 import SearchBox from "components/SearchBox";
@@ -24,18 +22,16 @@ class Topbar extends Component {
   };
 
   languageMenu = () => (
-    <CustomScrollbars className="gx-popover-lang-scroll">
-      <ul className="gx-sub-popover">
-        {languageData.map(language =>
-          <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
-            this.props.switchLanguage(language)
-          }>
-            <i className={`flag flag-24 gx-mr-2 flag-${language.icon}`}/>
-            <span className="gx-language-text">{language.name}</span>
-          </li>
-        )}
-      </ul>
-    </CustomScrollbars>);
+    <ul className="gx-sub-popover">
+      {languageData.map(language =>
+        <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={(e) =>
+          this.props.switchLanguage(language)
+        }>
+          <i className={`flag flag-24 gx-mr-2 flag-${language.icon}`}/>
+          <span className="gx-language-text">{language.name}</span>
+        </li>
+      )}
+    </ul>);
 
   updateSearchChatUser = (evt) => {
     this.setState({

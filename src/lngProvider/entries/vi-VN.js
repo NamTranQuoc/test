@@ -1,12 +1,13 @@
-import appLocaleData from "react-intl/locale-data/en";
+import antdVi from "antd/lib/locale-provider/vi_VN";
+import appLocaleData from "react-intl/locale-data/vi";
 import viMessages from "../locales/vi_VN.json";
 
 const ViLang = {
   messages: {
     ...viMessages
   },
-  antd: null,
-  locale: 'en-US',
+  antd: antdVi,
+  locale: 'vi',
   data: appLocaleData
 };
 export default ViLang;

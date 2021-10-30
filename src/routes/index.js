@@ -6,7 +6,7 @@ import asyncComponent from "util/asyncComponent";
 const App = ({match}) => (
   <div className="gx-main-content-wrapper">
     <Switch>
-      <Route path={`${match.url}sample`} component={asyncComponent(() => import('./SamplePage'))}/>
+      <Route path={`${match.url}dashboard`} component={asyncComponent(() => import('./SamplePage'))}/>
     </Switch>
   </div>
 );

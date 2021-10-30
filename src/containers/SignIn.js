@@ -6,6 +6,8 @@ import {Link} from "react-router-dom";
 import {
   hideMessage,
   showAuthLoader,
+  hideAuthLoader,
+  userSignInSuccess,
   userFacebookSignIn,
   userGithubSignIn,
   userGoogleSignIn,
@@ -14,6 +16,7 @@ import {
 } from "appRedux/actions/Auth";
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "components/CircularProgress/index";
+import {login} from "../service/AuthService"
 
 const FormItem = Form.Item;
 
@@ -24,7 +27,13 @@ class SignIn extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         this.props.showAuthLoader();
-        this.props.userSignIn(values);
+        login(values).then((Response) => {
+          if (Response.data.code !== -9999) {
+            this.props.userSignInSuccess(Response.data.payload);
+          } else {
+            this.props.hideAuthLoader();
+          }
+        })
       }
     });
   };
@@ -156,9 +165,11 @@ const mapStateToProps = ({auth}) => {
 export default connect(mapStateToProps, {
   userSignIn,
   hideMessage,
+  hideAuthLoader,
   showAuthLoader,
   userFacebookSignIn,
   userGoogleSignIn,
   userGithubSignIn,
+  userSignInSuccess,
   userTwitterSignIn
 })(WrappedNormalLoginForm);

@@ -138,6 +138,7 @@ function* signInUserWithTwitter() {
 }
 
 function* signInUserWithEmailPassword({payload}) {
+  console.log("signInUserWithEmailPassword");
   const {email, password} = payload;
   try {
     const signInUser = yield call(signInUserWithEmailPasswordRequest, email, password);

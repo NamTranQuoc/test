@@ -1,10 +1,10 @@
 import axios from "axios";
-import {host} from "../components/common/Host";
+import {host} from "./Host";
 
 const INSTRUCTOR_API_URL = `${host}/auth`;
-export function login(username, password) {
+export function login(user) {
     return axios.post(`${INSTRUCTOR_API_URL}/login`, {
-        username: username,
-        password: password,
+        username: user.email,
+        password: user.password,
     });
 }

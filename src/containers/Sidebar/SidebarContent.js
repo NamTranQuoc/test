@@ -54,6 +54,31 @@ class SidebarContent extends Component {
                 <Link to="/dashboard"><i className="icon icon-widgets"/>
                   <IntlMessages id="sidebar.dashboard"/></Link>
               </Menu.Item>
+              <Menu.SubMenu key="managerUser"
+                       title={<IntlMessages id="sidebar.managerUser"/>}>
+                <Menu.Item key="student">
+                  <Link to="/student"><i className="icon icon-widgets"/>
+                    <IntlMessages id="sidebar.managerUser.student"/></Link>
+                </Menu.Item>
+                <Menu.Item key="teacher">
+                  <Link to="/teacher"><i className="icon icon-widgets"/>
+                    <IntlMessages id="sidebar.managerUser.teacher"/></Link>
+                </Menu.Item>
+                <Menu.Item key="receptionist">
+                  <Link to="/receptionist"><i className="icon icon-widgets"/>
+                    <IntlMessages id="sidebar.managerUser.receptionist"/></Link>
+                </Menu.Item>
+              </Menu.SubMenu>
+              <Menu.SubMenu key="managerStudy" title={<IntlMessages id="sidebar.managerStudy"/>}>
+                <Menu.Item key="courseCategory">
+                  <Link to="/course-category">
+                    <IntlMessages id="sidebar.managerStudy.courseCategory"/></Link>
+                </Menu.Item>
+                <Menu.Item key="course">
+                  <Link to="/course">
+                    <IntlMessages id="sidebar.managerStudy.course"/></Link>
+                </Menu.Item>
+              </Menu.SubMenu>
 
             </Menu>
           </CustomScrollbars>

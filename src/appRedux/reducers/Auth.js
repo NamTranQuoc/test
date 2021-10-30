@@ -23,6 +23,7 @@ const INIT_STATE = {
 
 
 export default (state = INIT_STATE, action) => {
+  console.log("reducers " + action.type);
   switch (action.type) {
     case SIGNUP_USER_SUCCESS: {
       return {
