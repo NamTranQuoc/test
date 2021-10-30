@@ -41,33 +41,6 @@ const settings = (state = initialSettings, action) => {
         ...state,
         navCollapsed: action.navCollapsed
       };
-    case WINDOW_WIDTH:
-      return {
-        ...state,
-        width: action.width,
-      };
-    case THEME_TYPE:
-      return {
-        ...state,
-        themeType: action.themeType
-      };
-    case THEME_COLOR_SELECTION:
-      return {
-        ...state,
-        colorSelection: action.colorSelection
-      };
-
-    case NAV_STYLE:
-      return {
-        ...state,
-        navStyle: action.navStyle
-      };
-    case LAYOUT_TYPE:
-      return {
-        ...state,
-        layoutType: action.layoutType
-      };
-
     case SWITCH_LANGUAGE:
       return {
         ...state,

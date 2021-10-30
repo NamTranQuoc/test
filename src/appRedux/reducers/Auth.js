@@ -4,14 +4,10 @@ import {
   ON_HIDE_LOADER,
   ON_SHOW_LOADER,
   SHOW_MESSAGE,
-  SIGNIN_FACEBOOK_USER_SUCCESS,
-  SIGNIN_GITHUB_USER_SUCCESS,
-  SIGNIN_GOOGLE_USER_SUCCESS,
-  SIGNIN_TWITTER_USER_SUCCESS,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER_SUCCESS
-} from "constants/ActionTypes";
+} from "../../constants/ActionTypes";
 
 const INIT_STATE = {
   loader: false,
@@ -23,7 +19,6 @@ const INIT_STATE = {
 
 
 export default (state = INIT_STATE, action) => {
-  console.log("reducers " + action.type);
   switch (action.type) {
     case SIGNUP_USER_SUCCESS: {
       return {
@@ -53,7 +48,6 @@ export default (state = INIT_STATE, action) => {
         loader: false
       }
     }
-
     case SHOW_MESSAGE: {
       return {
         ...state,
@@ -68,35 +62,6 @@ export default (state = INIT_STATE, action) => {
         alertMessage: '',
         showMessage: false,
         loader: false
-      }
-    }
-
-    case SIGNIN_GOOGLE_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload
-      }
-    }
-    case SIGNIN_FACEBOOK_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload
-      }
-    }
-    case SIGNIN_TWITTER_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload
-      }
-    }
-    case SIGNIN_GITHUB_USER_SUCCESS: {
-      return {
-        ...state,
-        loader: false,
-        authUser: action.payload
       }
     }
     case ON_SHOW_LOADER: {
