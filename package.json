@@ -9,7 +9,7 @@
     "antd-theme-webpack-plugin": "^1.1.6",
     "axios": "^0.18.0",
     "draftjs-to-html": "^0.8.4",
-    "firebase": "^5.2.0",
+    "firebase": "^8.2.8",
     "instantsearch.css": "^7.1.0",
     "less": "2.7.3",
     "less-loader": "^4.1.0",

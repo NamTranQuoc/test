@@ -4,8 +4,8 @@ import {Layout} from "antd";
 import Sidebar from "../Sidebar/index";
 
 import Topbar from "../Topbar/index";
-import {footerText} from "util/config";
-import App from "routes/index";
+import {footerText} from "../../util/config";
+import App from "../../routes/index";
 import {connect} from "react-redux";
 import {
   NAV_STYLE_ABOVE_HEADER,

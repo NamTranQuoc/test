@@ -3,8 +3,8 @@ import {Button, Drawer, Form, message, Radio} from "antd";
 import {connect} from "react-redux";
 
 import ColorPicker from "./ColorPicker";
-import Auxiliary from "util/Auxiliary";
-import CustomScrollbars from "util/CustomScrollbars";
+import Auxiliary from "../../util/Auxiliary";
+import CustomScrollbars from "../../util/CustomScrollbars";
 import {onLayoutTypeChange, onNavStyleChange, setThemeColorSelection, setThemeType} from "appRedux/actions/Setting";
 
 import {

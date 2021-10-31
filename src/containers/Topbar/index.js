@@ -2,10 +2,10 @@ import React, {Component} from "react";
 import {Layout, Popover} from "antd";
 import {Link} from "react-router-dom";
 import languageData from "./languageData";
-import {switchLanguage, toggleCollapsedSideNav} from "../../appRedux/actions/Setting";
-import UserInfo from "components/UserInfo";
-import AppNotification from "components/AppNotification";
-import Auxiliary from "util/Auxiliary";
+import {switchLanguage, toggleCollapsedSideNav} from "../../appRedux/actions";
+import UserInfo from "../../components/UserInfo";
+import AppNotification from "../../components/AppNotification";
+import Auxiliary from "../../util/Auxiliary";
 
 
 import {NAV_STYLE_DRAWER, NAV_STYLE_FIXED, NAV_STYLE_MINI_SIDEBAR, TAB_SIZE} from "../../constants/ThemeSetting";
@@ -52,7 +52,7 @@ class Topbar extends Component {
               />
             </div> : null}
           <Link to="/" className="gx-d-block gx-d-lg-none gx-pointer">
-            <img alt="" src={require("assets/images/w-logo.png")}/></Link>
+            <img alt="" src={require("../../assets/images/w-logo.png")}/></Link>
           <ul className="gx-header-notifications gx-ml-auto">
             {width >= TAB_SIZE ? null :
               <Auxiliary style={{height: "100px"}}>

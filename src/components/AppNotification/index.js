@@ -1,8 +1,8 @@
 import React from "react";
 import NotificationItem from "./NotificationItem";
 import {notifications} from "./data";
-import CustomScrollbars from "util/CustomScrollbars";
-import Auxiliary from "util/Auxiliary";
+import CustomScrollbars from "../../util/CustomScrollbars";
+import Auxiliary from "../../util/Auxiliary";
 
 const AppNotification = () => {
   return (

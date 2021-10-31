@@ -5,11 +5,11 @@ import {Redirect, Route, Switch} from "react-router-dom";
 import {LocaleProvider} from "antd";
 import {IntlProvider} from "react-intl";
 
-import AppLocale from "lngProvider";
+import AppLocale from "../../lngProvider";
 import MainApp from "./MainApp";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
-import {setInitUrl} from "appRedux/actions/Auth";
+import {setInitUrl} from "../../appRedux/actions";
 
 import {
   LAYOUT_TYPE_BOXED,

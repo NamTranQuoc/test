@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 
-import {onNavStyleChange, toggleCollapsedSideNav} from "appRedux/actions/Setting";
+import {onNavStyleChange, toggleCollapsedSideNav} from "../../appRedux/actions";
 import {
   NAV_STYLE_DRAWER,
   NAV_STYLE_FIXED,
@@ -44,10 +44,10 @@ class SidebarLogo extends Component {
 
         <Link to="/" className="gx-site-logo">
           {navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && width >= TAB_SIZE ?
-            <img alt="" src={require("assets/images/w-logo.png")}/> :
+            <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/> :
             themeType === THEME_TYPE_LITE ?
-              <img alt="" src={require("assets/images/logo-white.png")}/> :
-              <img alt="" src={require("assets/images/logo.png")}/>}
+              <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/> :
+              <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/>}
 
         </Link>
 

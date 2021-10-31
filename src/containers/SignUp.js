@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {hideMessage, showAuthLoader, userSignUp,} from "../appRedux/actions";
 
-import IntlMessages from "util/IntlMessages";
+import IntlMessages from "../util/IntlMessages";
 import {message} from "antd/lib/index";
 import CircularProgress from "../components/CircularProgress";
 
@@ -59,7 +59,7 @@ class SignUp extends React.Component {
                 <p><IntlMessages id="app.userAuth.getAccount"/></p>
               </div>
               <div className="gx-app-logo">
-                <img alt="example" src={require("assets/images/logo.png")}/>
+                <img alt="example" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/>
               </div>
             </div>
 

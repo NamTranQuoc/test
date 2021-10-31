@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{1254:function(e,a,t){"use strict";t.r(a);var n=t(0),l=t.n(n),c=t(44);a.default=function(){return l.a.createElement("div",null,l.a.createElement("h2",{className:"title gx-mb-4"},l.a.createElement(c.a,{id:"sidebar.samplePage"})),l.a.createElement("div",{className:"gx-d-flex justify-content-center"},l.a.createElement("h4",null,"Start building your app. Happy Coding!")))}}}]);
+//# sourceMappingURL=3.1f278138.chunk.js.map

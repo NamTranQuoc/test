@@ -3,10 +3,10 @@ import {connect} from "react-redux";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
 
-import CustomScrollbars from "util/CustomScrollbars";
+import CustomScrollbars from "../../util/CustomScrollbars";
 import SidebarLogo from "./SidebarLogo";
 
-import Auxiliary from "util/Auxiliary";
+import Auxiliary from "../../util/Auxiliary";
 import UserProfile from "./UserProfile";
 import AppsNavigation from "./AppsNavigation";
 import {
