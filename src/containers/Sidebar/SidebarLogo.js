@@ -44,10 +44,10 @@ class SidebarLogo extends Component {
 
         <Link to="/" className="gx-site-logo">
           {navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR && width >= TAB_SIZE ?
-            <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/> :
+            <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Flogo.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/> :
             themeType === THEME_TYPE_LITE ?
-              <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/> :
-              <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/>}
+              <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-2021.appspot.com/o/images%2Flogo.png?alt=media&token=e32f70cd-77f2-469b-b98a-1bd4c56bb3e9"/> :
+              <img alt="" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-2021.appspot.com/o/images%2Flogo.png?alt=media&token=e32f70cd-77f2-469b-b98a-1bd4c56bb3e9"/>}
 
         </Link>
 

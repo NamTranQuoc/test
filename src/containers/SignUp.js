@@ -59,7 +59,7 @@ class SignUp extends React.Component {
                 <p><IntlMessages id="app.userAuth.getAccount"/></p>
               </div>
               <div className="gx-app-logo">
-                <img alt="example" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-bd4ab.appspot.com/o/images%2Favatar-1.png?alt=media&token=1e9f3c81-c00e-40fb-9be1-6b292d0582c6"/>
+                <img alt="example" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-2021.appspot.com/o/images%2Flogo.png?alt=media&token=e32f70cd-77f2-469b-b98a-1bd4c56bb3e9"/>
               </div>
             </div>
 
