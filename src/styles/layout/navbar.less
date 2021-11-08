@@ -28,10 +28,11 @@
   &-submenu-title:active {
     background: @menu-item-active-bg;
   }
-
   &-item .icon {
     min-width: 14px;
     margin-right: 20px;
+    display: inline-block;
+    vertical-align: middle;
 
     &[class^="icon-"]::before,
     &[class*=" icon-"]::before {
@@ -46,7 +47,6 @@
 
   &-item > a {
     color: @menu-item-color;
-
     &:hover {
       color: @menu-highlight-color;
     }
@@ -76,7 +76,6 @@
 
   &-item-selected {
     color: @menu-highlight-color;
-
     > a {
       color: @menu-item-color;
     }
@@ -100,7 +99,6 @@
       border-right: 0 none;
     }
   }
-
   &-vertical-right {
     border-left: @border-width-base @border-style-base @border-color-split;
   }
@@ -119,6 +117,25 @@
 
     .@{iconfont-css-prefix} {
       margin-right: 20px;
+    }
+  }
+
+  &-horizontal:not(.ant-menu-dark) > .ant-menu-item,
+  &-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
+    .@{class-prefix}-inside-header-horizontal & {
+      padding: 0;
+
+      @media screen and (max-width: @screen-lg-max) {
+        padding: 0;
+      }
+
+      & .ant-menu-submenu-title {
+        padding: 0 10px;
+
+        @media screen and (max-width: @screen-lg-max) {
+          padding: 0 6px;
+        }
+      }
     }
   }
 
@@ -212,7 +229,6 @@
   &-vertical-left &-submenu-selected,
   &-vertical-right &-submenu-selected {
     color: @menu-highlight-color;
-
     > a {
       color: @menu-highlight-color;
     }
@@ -242,11 +258,9 @@
 
       > a {
         color: @menu-item-color;
-
         &:hover {
           color: @menu-highlight-color;
         }
-
         &:before {
           bottom: -2px;
         }
@@ -262,7 +276,6 @@
       &:not(:last-child) {
         margin-bottom: 0;
       }
-
       &:after {
         border-right: 3px @border-style-base @menu-highlight-color;
       }
@@ -307,7 +320,7 @@
       }
 
       .ant-layout-sider-collapsed & {
-        padding: 0 (@menu-collapsed-width - 16px) / 2 !important;
+        padding: 0 calc((@menu-collapsed-width - 20px) / 2) !important;
       }
     }
 
@@ -339,11 +352,9 @@
     > .ant-menu-submenu > .ant-menu-submenu-title {
       left: 0;
       padding: 0 (@menu-collapsed-width - 16px) / 2 !important;
-
       .@{menu-prefix-cls}-submenu-arrow {
         display: none;
       }
-
       .icon {
         & + span {
           max-width: 0;
@@ -352,7 +363,6 @@
         }
       }
     }
-
     &-tooltip {
       & .icon {
         display: none;
@@ -396,11 +406,9 @@
   &-item-disabled,
   &-submenu-disabled {
     color: @disabled-color !important;
-
     > a {
       color: @disabled-color !important;
     }
-
     > .ant-menu-submenu-title {
       color: @disabled-color !important;
     }
@@ -425,7 +433,6 @@
   &-dark &-sub {
     color: @menu-dark-color;
     background: @menu-dark-bg;
-
     .ant-menu-submenu-title .ant-menu-submenu-arrow {
       &:after,
       &:before {
@@ -486,11 +493,9 @@
   &-dark &-submenu-title:hover,
   &-dark &-submenu-open &-submenu-open &-item > a:hover {
     color: @menu-dark-highlight-color;
-
     > a {
       color: @menu-dark-highlight-color;
     }
-
     > .ant-menu-submenu-title {
       > .ant-menu-submenu-arrow {
         &:after,
@@ -499,7 +504,6 @@
         }
       }
     }
-
     > .ant-menu-submenu-title:hover {
       > .ant-menu-submenu-arrow {
         &:after,
@@ -528,6 +532,10 @@
     > a:hover {
       color: @menu-dark-highlight-color;
     }
+
+    & span {
+      color: inherit;
+    }
   }
 
   &&-dark &-item-selected,
@@ -542,7 +550,6 @@
     > a {
       color: @disabled-color-dark !important;
     }
-
     > .ant-menu-submenu-title {
       color: @disabled-color-dark !important;
     }
@@ -552,14 +559,14 @@
     color: @menu-dark-color;
   }
 
+  &-dark .ant-menu-submenu-selected .ant-menu-sub .ant-menu-submenu-open .ant-menu-submenu-title,
   &-dark .ant-menu-submenu-selected .ant-menu-submenu-title,
   &-dark .ant-menu-submenu-selected .ant-menu-submenu-selected .ant-menu-submenu-title {
     color: @white-color;
-  }
 
-  &-dark .ant-menu-submenu-selected .ant-menu-submenu-title:hover,
-  &-dark .ant-menu-submenu-selected .ant-menu-submenu-selected .ant-menu-submenu-title:hover {
-    color: @menu-dark-highlight-color;
+    &:hover {
+      color: @menu-dark-highlight-color;
+    }
   }
 }
 
@@ -678,6 +685,14 @@
   }
 }
 
+.@{class-prefix}-menu-horizontal {
+  .border-radius(@border-radius-lg);
+
+  &:before {
+    display: none;
+  }
+}
+
 .@{class-prefix}-header-horizontal-nav {
   & .ant-menu-horizontal {
     border-bottom: 0 none;
@@ -705,6 +720,9 @@
 
     & > .ant-menu-submenu-title {
       color: @menu-dark-highlight-color;
+    }
+    &::after {
+      border-bottom-color: transparent;
     }
   }
 }
@@ -753,6 +771,9 @@
         }
       }
     }
+    &::after {
+      border-bottom-color: transparent;
+    }
   }
 
   & .ant-menu-horizontal > .ant-menu-submenu:hover,
@@ -789,6 +810,7 @@
     }
   }
 
+  & .ant-menu-submenu,
   & .ant-menu-submenu > .ant-menu {
     .border-radius(@border-radius-lg);
   }
@@ -855,7 +877,7 @@
   & .ant-menu-inline-collapsed > .ant-menu-item,
   & .ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
   & .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
-    padding: 0 (@sidebar-padding-lr - 10px) !important;
+    padding: 0 (@sidebar-padding-lr) !important;
 
     & > span {
       .justify-content(center);
@@ -873,14 +895,14 @@
     &.ant-menu-item-selected > a {
       color: @menu-dark-bg;
       background-color: @menu-dark-highlight-color;
-      .border-radius(@border-radius-sm - 2)
+      .border-radius(@border-radius-sm - 2);
     }
   }
 
   & .ant-menu-inline-collapsed > .ant-menu-submenu.ant-menu-submenu-selected > .ant-menu-submenu-title > span {
     color: @menu-dark-bg;
     background-color: @menu-dark-highlight-color;
-    .border-radius(@border-radius-sm - 2)
+    .border-radius(@border-radius-sm - 2);
   }
 
   & .ant-menu-vertical .ant-menu-item .icon,
@@ -900,4 +922,9 @@
     .border-radius(@border-radius-sm);
   }
 }
+
+.ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) .ant-menu-item-selected {
+  background-color: transparent;
+}
+
 

@@ -14,6 +14,12 @@
     }
   }
 
+  &:last-child {
+    .@{class-prefix}-card-tabs & {
+      margin-bottom: 15px;
+    }
+  }
+
   .@{class-prefix}-card-ticketlist & {
 
     .@{class-prefix}-hover {
@@ -47,7 +53,6 @@
 
   &:hover {
     cursor: pointer;
-
     & .gx-text-hover {
       color: @primary-color;
     }
@@ -867,7 +872,7 @@
     .@{class-prefix}-card-profile & {
       max-width: (@size-120 + 10);
 
-      @media (max-width: @screen-sm-max) {
+      @media (max-width: @screen-xs-max) {
         max-width: none;
       }
     }

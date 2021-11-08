@@ -1,29 +1,26 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
+import {useDispatch} from "react-redux";
 import {Avatar, Popover} from "antd";
-import {userSignOut} from "../../appRedux/actions";
+import {userSignOut} from "appRedux/actions/Auth";
 
-class UserInfo extends Component {
+const UserInfo = () => {
 
-  render() {
-    const userMenuOptions = (
-      <ul className="gx-user-popover">
-        <li>My Account</li>
-        <li>Connections</li>
-        <li onClick={() => this.props.userSignOut()}>Logout
-        </li>
-      </ul>
-    );
+  const dispatch = useDispatch();
 
-    return (
-      <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={userMenuOptions}
-               trigger="click">
-        <Avatar src='https://via.placeholder.com/150x150'
-                className="gx-avatar gx-pointer" alt=""/>
-      </Popover>
-    )
+  const userMenuOptions = (
+    <ul className="gx-user-popover">
+      <li>My Account</li>
+      <li>Connections</li>
+      <li onClick={() => dispatch(userSignOut())}>Logout
+      </li>
+    </ul>
+  );
 
-  }
-}
+  return (
+    <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={userMenuOptions} trigger="click">
+      <Avatar src={"https://via.placeholder.com/150"} className="gx-avatar gx-pointer" alt=""/>
+    </Popover>
+  );
+};
 
-export default connect(null, {userSignOut})(UserInfo);
+export default UserInfo;

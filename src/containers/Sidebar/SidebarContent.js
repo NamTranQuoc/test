@@ -1,12 +1,9 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
 
-import CustomScrollbars from "../../util/CustomScrollbars";
+import CustomScrollbars from "util/CustomScrollbars";
 import SidebarLogo from "./SidebarLogo";
-
-import Auxiliary from "../../util/Auxiliary";
 import UserProfile from "./UserProfile";
 import AppsNavigation from "./AppsNavigation";
 import {
@@ -15,94 +12,49 @@ import {
   THEME_TYPE_LITE
 } from "../../constants/ThemeSetting";
 import IntlMessages from "../../util/IntlMessages";
+import {useSelector} from "react-redux";
 
-class SidebarContent extends Component {
+const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
+  const {navStyle, themeType} = useSelector(({settings}) => settings);
+  const pathname = useSelector(({common}) => common.pathname);
 
-  getNoHeaderClass = (navStyle) => {
+  const getNoHeaderClass = (navStyle) => {
     if (navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR || navStyle === NAV_STYLE_NO_HEADER_EXPANDED_SIDEBAR) {
       return "gx-no-header-notifications";
     }
     return "";
   };
-  getNavStyleSubMenuClass = (navStyle) => {
-    if (navStyle === NAV_STYLE_NO_HEADER_MINI_SIDEBAR) {
-      return "gx-no-header-submenu-popup";
-    }
-    return "";
-  };
 
-  render() {
-    const {themeType, navStyle, pathname} = this.props;
-    const selectedKeys = pathname.substr(1);
-    const defaultOpenKeys = selectedKeys.split('/dashboard')[1];
-    return (<Auxiliary>
+  const selectedKeys = pathname.substr(1);
+  const defaultOpenKeys = selectedKeys.split('/')[1];
 
-        <SidebarLogo/>
-        <div className="gx-sidebar-content">
-          <div className={`gx-sidebar-notifications ${this.getNoHeaderClass(navStyle)}`}>
-            <UserProfile/>
-            <AppsNavigation/>
-          </div>
-          <CustomScrollbars className="gx-layout-sider-scrollbar">
-            <Menu
-              defaultOpenKeys={[defaultOpenKeys]}
-              selectedKeys={[selectedKeys]}
-              theme={themeType === THEME_TYPE_LITE ? 'lite' : 'dark'}
-              mode="inline">
-
-              <Menu.Item key="dashboard">
-                <Link to="/dashboard"><i className="icon icon-widgets"/>
-                  <IntlMessages id="sidebar.dashboard"/></Link>
-              </Menu.Item>
-              <Menu.SubMenu key="managerUser"
-                            className={this.getNavStyleSubMenuClass(navStyle)}
-                            title={
-                              <span>
-                                <i className="icon icon-avatar"/>
-                                <IntlMessages id="sidebar.managerUser"/>
-                              </span>}>
-                <Menu.Item key="student">
-                  <Link to="/student">
-                    <IntlMessages id="sidebar.managerUser.student"/></Link>
-                </Menu.Item>
-                <Menu.Item key="teacher">
-                  <Link to="/teacher">
-                    <IntlMessages id="sidebar.managerUser.teacher"/></Link>
-                </Menu.Item>
-                <Menu.Item key="receptionist">
-                  <Link to="/receptionist">
-                    <IntlMessages id="sidebar.managerUser.receptionist"/></Link>
-                </Menu.Item>
-              </Menu.SubMenu>
-              <Menu.SubMenu key="managerStudy"
-                            className={this.getNavStyleSubMenuClass(navStyle)}
-                            title={
-                              <span>
-                                <i className="icon icon-ckeditor"/>
-                                <IntlMessages id="sidebar.managerStudy"/>
-                              </span>}>
-                <Menu.Item key="courseCategory">
-                  <Link to="/course-category">
-                    <IntlMessages id="sidebar.managerStudy.courseCategory"/></Link>
-                </Menu.Item>
-                <Menu.Item key="course">
-                  <Link to="/course">
-                    <IntlMessages id="sidebar.managerStudy.course"/></Link>
-                </Menu.Item>
-              </Menu.SubMenu>
-
-            </Menu>
-          </CustomScrollbars>
+  return (
+    <>
+      <SidebarLogo sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed}/>
+      <div className="gx-sidebar-content">
+        <div className={`gx-sidebar-notifications ${getNoHeaderClass(navStyle)}`}>
+          <UserProfile/>
+          <AppsNavigation/>
         </div>
-      </Auxiliary>
-    );
-  }
-}
+        <CustomScrollbars className="gx-layout-sider-scrollbar">
+          <Menu
+            defaultOpenKeys={[defaultOpenKeys]}
+            selectedKeys={[selectedKeys]}
+            theme={themeType === THEME_TYPE_LITE ? 'lite' : 'dark'}
+            mode="inline">
 
-SidebarContent.propTypes = {};
-const mapStateToProps = ({settings}) => {
-  const {navStyle, themeType, locale, pathname} = settings;
-  return {navStyle, themeType, locale, pathname}
+            <Menu.Item key="sample">
+              <Link to="/sample"><i className="icon icon-widgets"/>
+                <span><IntlMessages id="sidebar.samplePage"/></span>
+              </Link>
+            </Menu.Item>
+
+          </Menu>
+        </CustomScrollbars>
+      </div>
+    </>
+  );
 };
-export default connect(mapStateToProps)(SidebarContent);
+
+export default React.memo(SidebarContent);
 

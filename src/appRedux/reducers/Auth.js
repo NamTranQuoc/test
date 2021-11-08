@@ -4,6 +4,10 @@ import {
   ON_HIDE_LOADER,
   ON_SHOW_LOADER,
   SHOW_MESSAGE,
+  SIGNIN_FACEBOOK_USER_SUCCESS,
+  SIGNIN_GITHUB_USER_SUCCESS,
+  SIGNIN_GOOGLE_USER_SUCCESS,
+  SIGNIN_TWITTER_USER_SUCCESS,
   SIGNIN_USER_SUCCESS,
   SIGNOUT_USER_SUCCESS,
   SIGNUP_USER_SUCCESS
@@ -17,8 +21,7 @@ const INIT_STATE = {
   authUser: localStorage.getItem('user_id'),
 };
 
-
-export default (state = INIT_STATE, action) => {
+const AuthReducer = (state = INIT_STATE, action) => {
   switch (action.type) {
     case SIGNUP_USER_SUCCESS: {
       return {
@@ -48,6 +51,7 @@ export default (state = INIT_STATE, action) => {
         loader: false
       }
     }
+
     case SHOW_MESSAGE: {
       return {
         ...state,
@@ -62,6 +66,35 @@ export default (state = INIT_STATE, action) => {
         alertMessage: '',
         showMessage: false,
         loader: false
+      }
+    }
+
+    case SIGNIN_GOOGLE_USER_SUCCESS: {
+      return {
+        ...state,
+        loader: false,
+        authUser: action.payload
+      }
+    }
+    case SIGNIN_FACEBOOK_USER_SUCCESS: {
+      return {
+        ...state,
+        loader: false,
+        authUser: action.payload
+      }
+    }
+    case SIGNIN_TWITTER_USER_SUCCESS: {
+      return {
+        ...state,
+        loader: false,
+        authUser: action.payload
+      }
+    }
+    case SIGNIN_GITHUB_USER_SUCCESS: {
+      return {
+        ...state,
+        loader: false,
+        authUser: action.payload
       }
     }
     case ON_SHOW_LOADER: {
@@ -80,3 +113,5 @@ export default (state = INIT_STATE, action) => {
       return state;
   }
 }
+
+export default AuthReducer;

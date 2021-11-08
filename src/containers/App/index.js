@@ -1,8 +1,7 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import URLSearchParams from 'url-search-params'
-import {Redirect, Route, Switch} from "react-router-dom";
-import {LocaleProvider} from "antd";
+import React, {memo, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import {ConfigProvider} from 'antd';
 import {IntlProvider} from "react-intl";
 
 import AppLocale from "../../lngProvider";
@@ -19,11 +18,10 @@ import {
   NAV_STYLE_BELOW_HEADER,
   NAV_STYLE_DARK_HORIZONTAL,
   NAV_STYLE_DEFAULT_HORIZONTAL,
-  NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
-  THEME_TYPE_DARK
+  NAV_STYLE_INSIDE_HEADER_HORIZONTAL, THEME_TYPE_DARK
 } from "../../constants/ThemeSetting";
 
-const RestrictedRoute = ({component: Component, authUser, ...rest}) =>
+const RestrictedRoute = ({component: Component, location, authUser, ...rest}) =>
   <Route
     {...rest}
     render={props =>
@@ -32,101 +30,116 @@ const RestrictedRoute = ({component: Component, authUser, ...rest}) =>
         : <Redirect
           to={{
             pathname: '/signin',
-            state: {from: props.location}
+            state: {from: location}
           }}
         />}
   />;
 
-
-class App extends Component {
-
-  setLayoutType = (layoutType) => {
-    if (layoutType === LAYOUT_TYPE_FULL) {
-      document.body.classList.remove('boxed-layout');
-      document.body.classList.remove('framed-layout');
-      document.body.classList.add('full-layout');
-    } else if (layoutType === LAYOUT_TYPE_BOXED) {
-      document.body.classList.remove('full-layout');
-      document.body.classList.remove('framed-layout');
-      document.body.classList.add('boxed-layout');
-    } else if (layoutType === LAYOUT_TYPE_FRAMED) {
-      document.body.classList.remove('boxed-layout');
-      document.body.classList.remove('full-layout');
-      document.body.classList.add('framed-layout');
-    }
-  };
-
-  setNavStyle = (navStyle) => {
-    if (navStyle === NAV_STYLE_DEFAULT_HORIZONTAL ||
-      navStyle === NAV_STYLE_DARK_HORIZONTAL ||
-      navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL ||
-      navStyle === NAV_STYLE_ABOVE_HEADER ||
-      navStyle === NAV_STYLE_BELOW_HEADER) {
-      document.body.classList.add('full-scroll');
-      document.body.classList.add('horizontal-layout');
-    } else {
-      document.body.classList.remove('full-scroll');
-      document.body.classList.remove('horizontal-layout');
-    }
-  };
-
-  componentWillMount() {
-    if (this.props.initURL === '') {
-      this.props.setInitUrl(this.props.history.location.pathname);
-    }
-    const params = new URLSearchParams(this.props.location.search);
-
-    if (params.has("theme")) {
-      this.props.setThemeType(params.get('theme'));
-    }
-    if (params.has("nav-style")) {
-      this.props.onNavStyleChange(params.get('nav-style'));
-    }
-    if (params.has("layout-type")) {
-      this.props.onLayoutTypeChange(params.get('layout-type'));
-    }
+const setLayoutType = (layoutType) => {
+  if (layoutType === LAYOUT_TYPE_FULL) {
+    document.body.classList.remove('boxed-layout');
+    document.body.classList.remove('framed-layout');
+    document.body.classList.add('full-layout');
+  } else if (layoutType === LAYOUT_TYPE_BOXED) {
+    document.body.classList.remove('full-layout');
+    document.body.classList.remove('framed-layout');
+    document.body.classList.add('boxed-layout');
+  } else if (layoutType === LAYOUT_TYPE_FRAMED) {
+    document.body.classList.remove('boxed-layout');
+    document.body.classList.remove('full-layout');
+    document.body.classList.add('framed-layout');
   }
+};
 
-  render() {
-    const {match, location, themeType, layoutType, navStyle, locale, authUser, initURL} = this.props;
+const setNavStyle = (navStyle) => {
+  if (navStyle === NAV_STYLE_DEFAULT_HORIZONTAL ||
+    navStyle === NAV_STYLE_DARK_HORIZONTAL ||
+    navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL ||
+    navStyle === NAV_STYLE_ABOVE_HEADER ||
+    navStyle === NAV_STYLE_BELOW_HEADER) {
+    document.body.classList.add('full-scroll');
+    document.body.classList.add('horizontal-layout');
+  } else {
+    document.body.classList.remove('full-scroll');
+    document.body.classList.remove('horizontal-layout');
+  }
+};
+
+const App = () => {
+  const locale = useSelector(({settings}) => settings.locale);
+  const navStyle = useSelector(({settings}) => settings.navStyle);
+  const layoutType = useSelector(({settings}) => settings.layoutType);
+  const themeType = useSelector(({settings}) => settings.themeType);
+  const isDirectionRTL = useSelector(({settings}) => settings.isDirectionRTL);
+
+  const {authUser, initURL} = useSelector(({auth}) => auth);
+  const dispatch = useDispatch();
+
+  const location = useLocation();
+  const history = useHistory();
+  const match = useRouteMatch();
+
+  useEffect(() => {
+    if (isDirectionRTL) {
+      document.documentElement.classList.add('rtl');
+      document.documentElement.setAttribute('data-direction', 'rtl')
+    } else {
+      document.documentElement.classList.remove('rtl');
+      document.documentElement.setAttribute('data-direction', 'ltr')
+    }
+  }, [isDirectionRTL]);
+
+  useEffect(() => {
+    if (locale)
+      document.documentElement.lang = locale.locale;
+  }, [locale]);
+
+  useEffect(() => {
     if (themeType === THEME_TYPE_DARK) {
       document.body.classList.add('dark-theme');
+    } else if (document.body.classList.contains('dark-theme')) {
+      document.body.classList.remove('dark-theme');
     }
+  }, [themeType]);
+
+  useEffect(() => {
+    if (initURL === '') {
+      dispatch(setInitUrl(location.pathname));
+    }
+  });
+
+  useEffect(() => {
     if (location.pathname === '/') {
       if (authUser === null) {
-        return (<Redirect to={'/signin'}/>);
+        history.push('/signin');
       } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        return (<Redirect to={'/sample'}/>);
+        history.push('/sample');
       } else {
-        return (<Redirect to={initURL}/>);
+        history.push(initURL);
       }
     }
-    this.setLayoutType(layoutType);
+  }, [authUser, initURL, location, history]);
 
-    this.setNavStyle(navStyle);
+  useEffect(() => {
+    setLayoutType(layoutType);
+    setNavStyle(navStyle);
+  }, [layoutType, navStyle]);
 
-    const currentAppLocale = AppLocale[locale.locale];
-    return (
-      <LocaleProvider locale={currentAppLocale.antd}>
-        <IntlProvider
-          locale={currentAppLocale.locale}
-          messages={currentAppLocale.messages}>
+  const currentAppLocale = AppLocale[locale.locale];
 
-          <Switch>
-            <Route exact path='/signin' component={SignIn}/>
-            <Route exact path='/signup' component={SignUp}/>
-            <RestrictedRoute path={`${match.url}`} authUser={authUser}
-                             component={MainApp}/>
-          </Switch>
-        </IntlProvider>
-      </LocaleProvider>
-    )
-  }
-}
-
-const mapStateToProps = ({settings, auth}) => {
-  const {locale, navStyle, themeType, layoutType} = settings;
-  const {authUser, initURL} = auth;
-  return {locale, navStyle, themeType, layoutType, authUser, initURL}
+  return (
+    <ConfigProvider locale={currentAppLocale.antd} direction={isDirectionRTL ? 'rtl' : 'ltr'}>
+      <IntlProvider
+        locale={currentAppLocale.locale}
+        messages={currentAppLocale.messages}>
+        <Switch>
+          <Route exact path='/signin' component={SignIn}/>
+          <Route exact path='/signup' component={SignUp}/>
+          <RestrictedRoute path={`${match.url}`} authUser={authUser} location={location} component={MainApp}/>
+        </Switch>
+      </IntlProvider>
+    </ConfigProvider>
+  )
 };
-export default connect(mapStateToProps, {setInitUrl})(App);
+
+export default memo(App);

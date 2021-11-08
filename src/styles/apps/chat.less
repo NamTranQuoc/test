@@ -52,7 +52,7 @@
   height: calc(100vh ~"-" 295px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"295px + 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-"295px ~"-" 2 * @framed-layout-base) !important;
   }
 
   @media screen and (max-width: @screen-md-max) {
@@ -73,7 +73,7 @@
   height: calc(100vh ~"-" 320px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"320px + 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-"320px ~"-" 2 * @framed-layout-base) !important;
   }
 
   @media screen and (max-width: @screen-md-max) {
@@ -93,14 +93,14 @@
   height: calc(100vh ~"-" 268px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"268px + 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-"268px ~"-" 2 * @framed-layout-base) !important;
   }
 
   @media screen and (max-width: @screen-lg-max) {
     height: calc(100vh ~"-" 242px) !important;
 
     .framed-layout & {
-      height: calc(100vh~"-"242px + 2 * @framed-layout-base) !important;
+      height: calc(100vh~"-"242px ~"-" 2 * @framed-layout-base) !important;
     }
   }
 
@@ -179,6 +179,13 @@
   }
 }
 
+.@{class-prefix}-tabs-half {
+  & .ant-tabs-nav-list,
+  & .ant-tabs-nav:before {
+    width: 100%;
+  }
+}
+
 .@{class-prefix}-chat-info {
   max-width: calc(100% ~"-" 80px);
   padding: 0 5px;
@@ -242,7 +249,7 @@
   height: calc(100vh ~"-" 122px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"122px + 2 * @framed-layout-base) !important;
+    height: calc(100vh~"-"122px ~"-" 2 * @framed-layout-base) !important;
 
     @media screen and (max-width: @screen-md-max) {
       height: calc(100vh ~"-" 122px) !important;

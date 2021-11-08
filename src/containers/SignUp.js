@@ -1,167 +1,146 @@
-import React from "react";
-import {Button, Checkbox, Form, Icon, Input} from "antd";
-import {Link} from "react-router-dom";
+import React, {useEffect} from "react";
+import {Button, Checkbox, Form, Input} from "antd";
+import {Link, useHistory} from "react-router-dom";
 
-import {connect} from "react-redux";
-import {hideMessage, showAuthLoader, userSignUp,} from "../appRedux/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {
+  hideMessage,
+  showAuthLoader,
+  userFacebookSignIn,
+  userGithubSignIn,
+  userGoogleSignIn,
+  userSignUp,
+  userTwitterSignIn
+} from "../appRedux/actions";
 
-import IntlMessages from "../util/IntlMessages";
+import IntlMessages from "util/IntlMessages";
 import {message} from "antd/lib/index";
 import CircularProgress from "../components/CircularProgress";
+import GoogleOutlined from "@ant-design/icons/lib/icons/GoogleOutlined";
+import FacebookOutlined from "@ant-design/icons/lib/icons/FacebookOutlined";
+import GithubOutlined from "@ant-design/icons/lib/icons/GithubOutlined";
+import TwitterOutlined from "@ant-design/icons/lib/icons/TwitterOutlined";
 
 const FormItem = Form.Item;
 
-class SignUp extends React.Component {
-  handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      console.log("values", values);
-      if (!err) {
-        this.props.showAuthLoader();
-        this.props.userSignUp(values);
-      }
-    });
-  };
+const SignUp = (props) => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const {loader, alertMessage, showMessage, authUser} = useSelector(({auth}) => auth);
 
-  constructor() {
-    super();
-    this.state = {
-      email: 'demo@example.com',
-      password: 'demo#123'
-    }
-  }
 
-  componentDidUpdate() {
-    if (this.props.showMessage) {
+  useEffect(() => {
+    if (showMessage) {
       setTimeout(() => {
-        this.props.hideMessage();
+        dispatch(hideMessage());
       }, 100);
     }
-    if (this.props.authUser !== null) {
-      this.props.history.push('/');
+    if (authUser !== null) {
+      history.push('/');
     }
-  }
+  });
 
-  render() {
-    const {getFieldDecorator} = this.props.form;
-    const {showMessage, loader, alertMessage} = this.props;
-    return (
-      <div className="gx-app-login-wrap">
-        <div className="gx-app-login-container">
-          <div className="gx-app-login-main-content">
-            <div className="gx-app-logo-content">
-              <div className="gx-app-logo-content-bg">
-                <img src='https://via.placeholder.com/272x395' alt='Neature'/>
-              </div>
-              <div className="gx-app-logo-wid">
-                <h1><IntlMessages id="app.userAuth.signUp"/></h1>
-                <p><IntlMessages id="app.userAuth.bySigning"/></p>
-                <p><IntlMessages id="app.userAuth.getAccount"/></p>
-              </div>
-              <div className="gx-app-logo">
-                <img alt="example" src="https://firebasestorage.googleapis.com/v0/b/englishcenter-2021.appspot.com/o/images%2Flogo.png?alt=media&token=e32f70cd-77f2-469b-b98a-1bd4c56bb3e9"/>
-              </div>
-            </div>
+  const onFinishFailed = errorInfo => {
+  };
 
-            <div className="gx-app-login-content">
-              <Form onSubmit={this.handleSubmit} className="gx-signup-form gx-form-row0">
-                <FormItem>
-                  {getFieldDecorator('userName', {
-                    rules: [{required: true, message: 'Please input your username!'}],
-                  })(
-                    <Input placeholder="Username"/>
-                  )}
-                </FormItem>
+  const onFinish = values => {
+    dispatch(showAuthLoader());
+    dispatch(userSignUp(values));
+  };
 
-                <FormItem>
-                  {getFieldDecorator('email', {
-                    rules: [{
-                      required: true, type: 'email', message: 'The input is not valid E-mail!',
-                    }],
-                  })(
-                    <Input placeholder="Email"/>
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('password', {
-                    rules: [{required: true, message: 'Please input your Password!'}],
-                  })(
-                    <Input type="password" placeholder="Password"/>
-                  )}
-                </FormItem>
-                <FormItem>
-                  {getFieldDecorator('remember', {
-                    valuePropName: 'checked',
-                    initialValue: true,
-                  })(
-                    <Checkbox><IntlMessages id="appModule.iAccept"/></Checkbox>
-                  )}
-                  <span className="gx-link gx-signup-form-forgot"><IntlMessages
-                    id="appModule.termAndCondition"/></span>
-                </FormItem>
-                <FormItem>
-                  <Button type="primary" className="gx-mb-0" htmlType="submit">
-                    <IntlMessages id="app.userAuth.signUp"/>
-                  </Button>
-                  <span><IntlMessages id="app.userAuth.or"/></span> <Link to="/signin"><IntlMessages
-                  id="app.userAuth.signIn"/></Link>
-                </FormItem>
-                <div className="gx-flex-row gx-justify-content-between">
-                  <span>or connect with</span>
-                  <ul className="gx-social-link">
-                    <li>
-                      <Icon type="google" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userGoogleSignIn();
-                      }}/>
-                    </li>
-                    <li>
-                      <Icon type="facebook" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userFacebookSignIn();
-                      }}/>
-                    </li>
-                    <li>
-                      <Icon type="github" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userGithubSignIn();
-                      }}/>
-                    </li>
-                    <li>
-                      <Icon type="twitter" onClick={() => {
-                        this.props.showAuthLoader();
-                        this.props.userTwitterSignIn();
-                      }}/>
-                    </li>
-                  </ul>
-                </div>
-              </Form>
+  return (
+    <div className="gx-app-login-wrap">
+      <div className="gx-app-login-container">
+        <div className="gx-app-login-main-content">
+          <div className="gx-app-logo-content">
+            <div className="gx-app-logo-content-bg">
+              <img src={"https://via.placeholder.com/272x395"} alt='Neature'/>
             </div>
-            {loader &&
-            <div className="gx-loader-view">
-              <CircularProgress/>
+            <div className="gx-app-logo-wid">
+              <h1><IntlMessages id="app.userAuth.signUp"/></h1>
+              <p><IntlMessages id="app.userAuth.bySigning"/></p>
+              <p><IntlMessages id="app.userAuth.getAccount"/></p>
             </div>
-            }
-            {showMessage &&
-            message.error(alertMessage)}
+            <div className="gx-app-logo">
+              <img alt="example" src="/assets/images/logo.png"/>
+            </div>
           </div>
+
+          <div className="gx-app-login-content">
+            <Form
+              initialValues={{remember: true}}
+              name="basic"
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+              className="gx-signin-form gx-form-row0">
+              <FormItem rules={[{required: true, message: 'Please input your username!'}]} name="Username">
+                <Input placeholder="Username"/>
+              </FormItem>
+
+              <FormItem name="email" rules={[{
+                required: true, type: 'email', message: 'The input is not valid E-mail!',
+              }]}>
+                <Input placeholder="Email"/>
+              </FormItem>
+              <FormItem name="password"
+                        rules={[{required: true, message: 'Please input your Password!'}]}>
+                <Input type="password" placeholder="Password"/>
+              </FormItem>
+              <FormItem name="remember" valuePropName="checked">
+                <Checkbox>Remember me</Checkbox>
+                <Link className="gx-login-form-forgot" to="/custom-views/user-auth/forgot-password">Forgot
+                  password</Link>
+              </FormItem>
+              <FormItem>
+                <Button type="primary" className="gx-mb-0" htmlType="submit">
+                  <IntlMessages id="app.userAuth.signUp"/>
+                </Button>
+                <span><IntlMessages id="app.userAuth.or"/></span> <Link to="/signin"><IntlMessages
+                id="app.userAuth.signIn"/></Link>
+              </FormItem>
+              <div className="gx-flex-row gx-justify-content-between">
+                <span>or connect with</span>
+                <ul className="gx-social-link">
+                  <li>
+                    <GoogleOutlined onClick={() => {
+                      dispatch(showAuthLoader());
+                      dispatch(userGoogleSignIn());
+                    }}/>
+                  </li>
+                  <li>
+                    <FacebookOutlined onClick={() => {
+                      dispatch(showAuthLoader());
+                      dispatch(userFacebookSignIn());
+                    }}/>
+                  </li>
+                  <li>
+                    <GithubOutlined onClick={() => {
+                      dispatch(showAuthLoader());
+                      dispatch(userGithubSignIn());
+                    }}/>
+                  </li>
+                  <li>
+                    <TwitterOutlined onClick={() => {
+                      dispatch(showAuthLoader());
+                      dispatch(userTwitterSignIn());
+                    }}/>
+                  </li>
+                </ul>
+              </div>
+            </Form>
+          </div>
+          {loader &&
+          <div className="gx-loader-view">
+            <CircularProgress/>
+          </div>
+          }
+          {showMessage &&
+          message.error(alertMessage)}
         </div>
       </div>
-
-    );
-  }
-
-}
-
-const WrappedSignUpForm = Form.create()(SignUp);
-
-const mapStateToProps = ({auth}) => {
-  const {loader, alertMessage, showMessage, authUser} = auth;
-  return {loader, alertMessage, showMessage, authUser}
+    </div>
+  );
 };
 
-export default connect(mapStateToProps, {
-  userSignUp,
-  hideMessage,
-  showAuthLoader
-})(WrappedSignUpForm);
+
+export default SignUp;

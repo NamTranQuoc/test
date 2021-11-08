@@ -19,6 +19,7 @@ it is well documented at [here](http://docs.g-axon.com/wieldy/ "Documentation") 
 | `master`                         | This is the main production branch. You should pull from here to update your local repo. |
 | `starter-template`               | This branch is for you to kickstart your project with the starter template with auth (Firebase). This way you can start building your project from ground-up. |
 | `starter-template-without-auth`  | If you are looking to use a different authentication system, this is the right branch for you to start with. |
+| `starter-template-jwt-auth`      | If you are looking to use a JWT authentication system, this is the right branch for you to start with. |
 
 ## Issues
 ##### We accept issues here on GitHub but please follow the rules defined below before raising an issue:

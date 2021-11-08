@@ -32,6 +32,11 @@
     }
   }
 
+  & .ant-input-affix-wrapper {
+    background-color: @grey-3;
+    max-height: none;
+  }
+
   & .ant-form-item-control-wrapper {
     width: 100%;
   }
@@ -211,5 +216,11 @@
 
   & p {
     margin-bottom: 0;
+  }
+}
+
+.@{class-prefix}-signin-form {
+  & .ant-form-item-control-input {
+    min-height: 40px;
   }
 }

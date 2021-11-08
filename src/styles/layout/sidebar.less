@@ -135,10 +135,10 @@
 .@{class-prefix}-layout-sider-scrollbar {
 
 
-  height: calc(100vh~"-"@layout-header-height + 145px) !important;
+  height: calc(100vh~"-"@layout-header-height ~"-" 145px) !important;
 
   .framed-layout & {
-    height: calc(100vh~"-"@layout-header-height + 2 * @framed-layout-base + 145px) !important;
+    height: calc(100vh~"-"@layout-header-height ~"-" 2 * @framed-layout-base ~"-" 145px) !important;
 
     @media screen and (max-width: @screen-md-max) {
       height: calc(100vh ~"-" @layout-header-height) !important;
@@ -146,10 +146,10 @@
   }
 
   .ant-layout-sider-collapsed & {
-    height: calc(100vh~"-"@layout-header-height + 91px) !important;
+    height: calc(100vh~"-"@layout-header-height ~"-" 91px) !important;
 
     .framed-layout & {
-      height: calc(100vh~"-"@layout-header-height + 2 * @framed-layout-base + 91px) !important;
+      height: calc(100vh~"-"@layout-header-height ~"-" 2 * @framed-layout-base ~"-" 91px) !important;
 
       @media screen and (max-width: @screen-md-max) {
         height: calc(100vh ~"-" @layout-header-height) !important;
@@ -166,10 +166,10 @@
   }
 
   .@{class-prefix}-mini-custom-sidebar & {
-    height: calc(100vh~"-"@layout-header-height + 206px) !important;
+    height: calc(100vh~"-"@layout-header-height ~"-" 206px) !important;
 
     .framed-layout & {
-      height: calc(100vh~"-"@layout-header-height + 2 * @framed-layout-base + 206px) !important;
+      height: calc(100vh~"-"@layout-header-height ~"-" 2 * @framed-layout-base ~"-" 206px) !important;
 
       @media screen and (max-width: @screen-md-max) {
         height: calc(100vh ~"-" @layout-header-height) !important;
@@ -189,11 +189,11 @@
 .@{class-prefix}-no-header-notifications {
   & + .@{class-prefix}-layout-sider-scrollbar {
     @media screen and (max-width: @screen-md-max) {
-      height: calc(100vh~"-"@layout-header-height + 145px) !important;
+      height: calc(100vh~"-"@layout-header-height ~"-" 145px) !important;
     }
 
     @media screen and (max-width: @screen-xs-max) {
-      height: calc(100vh~"-"@layout-header-height-res + 145px) !important;
+      height: calc(100vh~"-"@layout-header-height-res ~"-" 145px) !important;
     }
   }
 }
@@ -282,8 +282,7 @@
 
 .@{class-prefix}-menu-group .ant-menu-item-group-title {
   font-size: 16px;
-  padding-top: 30px !important;;
-
+  padding-top: 30px !important;
 }
 
 .@{class-prefix}-layouts-view {
@@ -298,7 +297,6 @@
     &.active {
       box-shadow: 0 0 10px 0 @primary-color;
       .border-radius(8px);
-
     }
   }
 }

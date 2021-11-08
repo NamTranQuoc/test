@@ -1,5 +1,5 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
+import {useSelector} from "react-redux";
 import {Menu} from "antd";
 import {Link} from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
@@ -10,12 +10,14 @@ import {
   NAV_STYLE_INSIDE_HEADER_HORIZONTAL
 } from "../../constants/ThemeSetting";
 
-
 const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
-class HorizontalNav extends Component {
+const HorizontalNav = () => {
+  const navStyle = useSelector(({settings}) => settings.navStyle);
+  const pathname = useSelector(({common}) => common.pathname);
 
-  getNavStyleSubMenuClass = (navStyle) => {
+  const getNavStyleSubMenuClass = (navStyle) => {
     switch (navStyle) {
       case NAV_STYLE_DEFAULT_HORIZONTAL:
         return "gx-menu-horizontal gx-submenu-popup-curve";
@@ -27,38 +29,29 @@ class HorizontalNav extends Component {
         return "gx-menu-horizontal gx-submenu-popup-curve gx-above-submenu-popup-curve";
       default:
         return "gx-menu-horizontal";
-
     }
   };
 
-  render() {
-    const {pathname, navStyle} = this.props;
-    const selectedKeys = pathname.substr(1);
-    const defaultOpenKeys = selectedKeys.split('/')[1];
-    return (
-
-      <Menu
-        defaultOpenKeys={[defaultOpenKeys]}
-        selectedKeys={[selectedKeys]}
-        mode="horizontal">
-
-        <SubMenu className={this.getNavStyleSubMenuClass(navStyle)} key="main"
-                 title={<IntlMessages id="sidebar.main"/>}>
-          <Menu.Item key="sample">
-            <Link to="/sample"><i className="icon icon-widgets"/>
-              <IntlMessages id="sidebar.samplePage"/></Link>
-          </Menu.Item>
-        </SubMenu>
-      </Menu>
-
-    );
-  }
-}
+  const selectedKeys = pathname.substr(1);
+  const defaultOpenKeys = selectedKeys.split('/')[1];
+  return (
+    <Menu
+      defaultOpenKeys={[defaultOpenKeys]}
+      selectedKeys={[selectedKeys]}
+      mode="horizontal">
+      <SubMenu className={getNavStyleSubMenuClass(navStyle)} key="main" title={<IntlMessages id="sidebar.main"/>}>
+        <Menu.Item key="sample">
+          <Link to="/sample">
+            <i className="icon icon-widgets"/>
+            <IntlMessages id="sidebar.samplePage"/>
+          </Link>
+        </Menu.Item>
+      </SubMenu>
+    </Menu>
+  );
+};
 
 HorizontalNav.propTypes = {};
-const mapStateToProps = ({settings}) => {
-  const {themeType, navStyle, pathname, locale} = settings;
-  return {themeType, navStyle, pathname, locale}
-};
-export default connect(mapStateToProps)(HorizontalNav);
+
+export default HorizontalNav;
 

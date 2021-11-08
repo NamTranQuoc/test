@@ -1,6 +1,6 @@
 import React from "react";
 
-import IntlMessages from "../../util/IntlMessages";
+import IntlMessages from "util/IntlMessages";
 
 const SamplePage = () => {
   return (

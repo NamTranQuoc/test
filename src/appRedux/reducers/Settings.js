@@ -1,49 +1,49 @@
-import {SWITCH_LANGUAGE, TOGGLE_COLLAPSED_NAV, WINDOW_WIDTH} from "../../constants/ActionTypes";
+import {SWITCH_LANGUAGE} from "../../constants/ActionTypes";
 import {
   LAYOUT_TYPE,
   LAYOUT_TYPE_FULL,
   NAV_STYLE,
   NAV_STYLE_FIXED,
-  THEME_COLOR_SELECTION_PRESET,
-  THEME_TYPE_SEMI_DARK
+  THEME_COLOR,
+  THEME_TYPE,
+  THEME_TYPE_SEMI_DARK, UPDATE_RTL_STATUS
 } from "../../constants/ThemeSetting";
 
 const initialSettings = {
-  navCollapsed: true,
   navStyle: NAV_STYLE_FIXED,
   layoutType: LAYOUT_TYPE_FULL,
   themeType: THEME_TYPE_SEMI_DARK,
-  colorSelection: THEME_COLOR_SELECTION_PRESET,
+  themeColor: '',
 
-  pathname: '',
-  width: window.innerWidth,
   isDirectionRTL: false,
   locale: {
-    languageId: 'vietnam',
-    locale: 'vi',
-    name: 'Việt Nam',
-    icon: 'vn'
+    languageId: 'english',
+    locale: 'en',
+    name: 'English',
+    icon: 'us'
   }
 };
 
-const settings = (state = initialSettings, action) => {
+const SettingsReducer = (state = initialSettings, action) => {
   switch (action.type) {
-    case '@@router/LOCATION_CHANGE':
+
+    case THEME_TYPE:
       return {
         ...state,
-        pathname: action.payload.pathname,
-        navCollapsed: false
+        themeType: action.themeType
       };
-    case TOGGLE_COLLAPSED_NAV:
+    case THEME_COLOR:
       return {
         ...state,
-        navCollapsed: action.navCollapsed
+        themeColor: action.themeColor
       };
-    case WINDOW_WIDTH:
+
+    case UPDATE_RTL_STATUS:
       return {
         ...state,
-        width: action.width,
+        isDirectionRTL: action.rtlStatus
       };
+
     case NAV_STYLE:
       return {
         ...state,
@@ -66,4 +66,4 @@ const settings = (state = initialSettings, action) => {
   }
 };
 
-export default settings;
+export default SettingsReducer;
