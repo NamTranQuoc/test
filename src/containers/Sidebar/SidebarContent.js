@@ -25,8 +25,6 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
         return "";
     };
 
-    const selectedKeys = pathname;
-
     return (
         <>
             <SidebarLogo sidebarCollapsed={sidebarCollapsed} setSidebarCollapsed={setSidebarCollapsed}/>
@@ -37,8 +35,8 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
                 </div>
                 <CustomScrollbars className="gx-layout-sider-scrollbar">
                     <Menu
-                        defaultOpenKeys={[selectedKeys]}
-                        selectedKeys={[selectedKeys]}
+                        defaultOpenKeys={["/admin/dashboard"]}
+                        selectedKeys={[pathname]}
                         theme={themeType === THEME_TYPE_LITE ? 'lite' : 'dark'}
                         mode="inline">
 

@@ -1,15 +1,6 @@
-import {
-    FETCH_ERROR,
-    FETCH_START,
-    FETCH_SUCCESS,
-    HIDE_MESSAGE,
-    SHOW_MESSAGE,
-    TOGGLE_COLLAPSED_NAV,
-    WINDOW_WIDTH
-} from '../../constants/ActionTypes'
+import {HIDE_MESSAGE, INIT_URL, ON_HIDE_LOADER, ON_SHOW_LOADER, SHOW_MESSAGE,} from '../../constants/ActionTypes'
 
 const INIT_STATE = {
-    error: "",
     loading: false,
     message: '',
     navCollapsed: true,
@@ -19,38 +10,36 @@ const INIT_STATE = {
 
 const CommonReducer = (state = INIT_STATE, action) => {
     switch (action.type) {
-        case '@@router/LOCATION_CHANGE': {
+        case INIT_URL: {
             return {
                 ...state,
-                pathname: action.payload.location.pathname,
-                navCollapsed: false
+                pathname: action.payload
             }
-        }
-        case WINDOW_WIDTH:
-            return {
-                ...state,
-                width: action.width,
-            };
-        case TOGGLE_COLLAPSED_NAV: {
-            return {
-                ...state,
-                navCollapsed: action.navCollapsed
-            }
-        }
-        case FETCH_START: {
-            return {...state, error: '', message: '', loading: true};
-        }
-        case FETCH_SUCCESS: {
-            return {...state, error: '', message: '', loading: false};
         }
         case SHOW_MESSAGE: {
-            return {...state, error: '', message: action.payload, loading: false};
-        }
-        case FETCH_ERROR: {
-            return {...state, loading: false, error: action.payload, message: ''};
+            return {
+                ...state,
+                message: action.payload.message,
+                loading: false
+            }
         }
         case HIDE_MESSAGE: {
-            return {...state, loading: false, error: '', message: ''};
+            return {
+                ...state,
+                loading: false
+            }
+        }
+        case ON_SHOW_LOADER: {
+            return {
+                ...state,
+                loading: true
+            }
+        }
+        case ON_HIDE_LOADER: {
+            return {
+                ...state,
+                loading: false
+            }
         }
         default:
             return state;

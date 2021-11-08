@@ -1,16 +1,15 @@
 import React, {useEffect} from "react";
-import {Button, Checkbox, Form, Input, message} from "antd";
+import {Button, Checkbox, Form, Input} from "antd";
 import {useDispatch, useSelector} from "react-redux";
 import {Link, useHistory} from "react-router-dom";
 
-import {hideMessage, showAuthLoader, userSignIn,} from "../appRedux/actions";
+import {hideMessage, userSignIn,} from "../appRedux/actions";
 
 import IntlMessages from "util/IntlMessages";
-import CircularProgress from "../components/CircularProgress";
 
 const SignIn = () => {
     const dispatch = useDispatch();
-    const {loader, alertMessage, showMessage, authUser} = useSelector(({auth}) => auth);
+    const {showMessage, authUser} = useSelector(({auth}) => auth);
     const history = useHistory();
 
     useEffect(() => {
@@ -28,7 +27,6 @@ const SignIn = () => {
     };
 
     const onFinish = values => {
-        dispatch(showAuthLoader());
         dispatch(userSignIn(values));
     };
 
@@ -82,13 +80,6 @@ const SignIn = () => {
                             </Form.Item>
                         </Form>
                     </div>
-
-                    {loader ?
-                        <div className="gx-loader-view">
-                            <CircularProgress/>
-                        </div> : null}
-                    {showMessage ?
-                        message.error(alertMessage.toString()) : null}
                 </div>
             </div>
         </div>

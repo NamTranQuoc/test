@@ -1,12 +1,11 @@
 import {all, call, fork, put, takeEvery} from "redux-saga/effects";
 import {SIGNIN_USER, SIGNOUT_USER,} from "../../constants/ActionTypes";
 import {
-    setInitUrl,
-    showAuthMessage,
+    hideLoader,
+    setInitUrl, showLoader,
     showMessage,
     userSignInSuccess,
     userSignOutSuccess,
-    userSignUpSuccess,
 } from "../actions";
 import axios from "axios";
 import {host} from "../store/Host";
@@ -27,7 +26,7 @@ const signInUserWithEmailPasswordRequest = async (payload) =>
 
 function* signInUserWithEmailPassword({payload}) {
     try {
-        // yield put(showLoader());
+        yield put(showLoader());
         const response = yield call(signInUserWithEmailPasswordRequest, payload);
         if (response.data.code !== 9999) {
             yield put(showMessage(response.data.message));
@@ -39,7 +38,7 @@ function* signInUserWithEmailPassword({payload}) {
     } catch (error) {
         yield put(showMessage(error));
     } finally {
-        // yield put(hideLoader());
+        yield put(hideLoader());
     }
 }
 
@@ -50,10 +49,10 @@ function* signOut() {
             localStorage.removeItem('token');
             yield put(userSignOutSuccess(signOutUser));
         } else {
-            yield put(showAuthMessage(signOutUser.message));
+            yield put(showMessage(signOutUser.message));
         }
     } catch (error) {
-        yield put(showAuthMessage(error));
+        yield put(showMessage(error));
     }
 }
 

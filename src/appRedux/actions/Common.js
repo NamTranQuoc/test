@@ -1,23 +1,12 @@
-import {FETCH_ERROR, FETCH_START, FETCH_SUCCESS, HIDE_MESSAGE, SHOW_MESSAGE} from "../../constants/ActionTypes";
-
-export const fetchStart = () => {
-    return {
-        type: FETCH_START
-    }
-};
-
-export const fetchSuccess = () => {
-    return {
-        type: FETCH_SUCCESS
-    }
-};
-
-export const fetchError = (error) => {
-    return {
-        type: FETCH_ERROR,
-        payload: error
-    }
-};
+import {
+    CLEAR_ITEMS,
+    HIDE_MESSAGE,
+    INIT_URL,
+    ON_HIDE_LOADER,
+    ON_HIDE_LOADER_TABLE,
+    ON_SHOW_LOADER,
+    SHOW_MESSAGE,
+} from "../../constants/ActionTypes";
 
 export const showMessage = (message) => {
     return {
@@ -31,6 +20,37 @@ export const hideMessage = () => {
         type: HIDE_MESSAGE
     }
 };
+
+export const setInitUrl = (url) => {
+    return {
+        type: INIT_URL,
+        payload: url
+    };
+};
+
+export const showLoader = () => {
+    return {
+        type: ON_SHOW_LOADER,
+    };
+};
+
+export const hideLoader = () => {
+    return {
+        type: ON_HIDE_LOADER,
+    };
+};
+
+export const hideLoaderTable = () => {
+    return {
+        type: ON_HIDE_LOADER_TABLE,
+    };
+};
+
+export const clearItems = () => {
+    return {
+        type: CLEAR_ITEMS,
+    }
+}
 
 
 

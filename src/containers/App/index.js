@@ -9,7 +9,7 @@ import HomeApp from "../../routes/user";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import {setInitUrl} from "../../appRedux/actions";
-
+import {NotificationContainer} from "react-notifications";
 import {
     LAYOUT_TYPE_BOXED,
     LAYOUT_TYPE_FRAMED,
@@ -21,6 +21,7 @@ import {
     NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
     THEME_TYPE_DARK
 } from "../../constants/ThemeSetting";
+import CircularProgress from "../../components/CircularProgress";
 
 const RestrictedRoute = ({component: Component, location, authUser, ...rest}) =>
     <Route
@@ -72,8 +73,8 @@ const App = () => {
     const layoutType = useSelector(({settings}) => settings.layoutType);
     const themeType = useSelector(({settings}) => settings.themeType);
     const isDirectionRTL = useSelector(({settings}) => settings.isDirectionRTL);
-
-    const {authUser, initURL} = useSelector(({auth}) => auth);
+    const pathname = useSelector(({common}) => common.pathname);
+    const {authUser} = useSelector(({auth}) => auth);
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -103,25 +104,24 @@ const App = () => {
     }, [themeType]);
 
     useEffect(() => {
-        if (initURL === '') {
+        if (pathname !== location.pathname) {
             dispatch(setInitUrl(location.pathname));
         }
     });
 
     useEffect(() => {
         if (location.pathname === '/') {
-            console.log(authUser);
-            if (authUser === null) {
-                history.push('/signin');
-            } else if (initURL === '/signin') {
-                history.push('/admin/dashboard');
-            } else if (initURL === '/' || initURL === '') {
+            if (pathname === '/' || pathname === '') {
                 history.push('/home');
+            } else if (authUser === null) {
+                history.push('/signin');
+            } else if (pathname === '/signin') {
+                history.push('/admin/dashboard');
             } else {
-                history.push(initURL);
+                history.push(pathname);
             }
         }
-    }, [authUser, initURL, location, history]);
+    }, [authUser, pathname, location, history]);
 
     useEffect(() => {
         setLayoutType(layoutType);
@@ -132,6 +132,7 @@ const App = () => {
 
     return (
         <ConfigProvider locale={currentAppLocale.antd} direction={isDirectionRTL ? 'rtl' : 'ltr'}>
+            <CircularProgress/>
             <IntlProvider
                 locale={currentAppLocale.locale}
                 messages={currentAppLocale.messages}>
@@ -141,6 +142,11 @@ const App = () => {
                     <RestrictedRoute path="/admin" authUser={authUser} location={location} component={MainApp}/>
                     <Route exact path="/home" component={HomeApp}/>
                 </Switch>
+            </IntlProvider>
+            <IntlProvider
+                locale={currentAppLocale.locale}
+                messages={currentAppLocale.messages}>
+                <NotificationContainer/>
             </IntlProvider>
         </ConfigProvider>
     )
