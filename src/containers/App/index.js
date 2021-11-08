@@ -1,6 +1,6 @@
 import React, {memo, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import {ConfigProvider} from 'antd';
 import {IntlProvider} from "react-intl";
 import AppLocale from "../../lngProvider";
@@ -11,139 +11,138 @@ import SignUp from "../SignUp";
 import {setInitUrl} from "../../appRedux/actions";
 
 import {
-  LAYOUT_TYPE_BOXED,
-  LAYOUT_TYPE_FRAMED,
-  LAYOUT_TYPE_FULL,
-  NAV_STYLE_ABOVE_HEADER,
-  NAV_STYLE_BELOW_HEADER,
-  NAV_STYLE_DARK_HORIZONTAL,
-  NAV_STYLE_DEFAULT_HORIZONTAL,
-  NAV_STYLE_INSIDE_HEADER_HORIZONTAL, THEME_TYPE_DARK
+    LAYOUT_TYPE_BOXED,
+    LAYOUT_TYPE_FRAMED,
+    LAYOUT_TYPE_FULL,
+    NAV_STYLE_ABOVE_HEADER,
+    NAV_STYLE_BELOW_HEADER,
+    NAV_STYLE_DARK_HORIZONTAL,
+    NAV_STYLE_DEFAULT_HORIZONTAL,
+    NAV_STYLE_INSIDE_HEADER_HORIZONTAL,
+    THEME_TYPE_DARK
 } from "../../constants/ThemeSetting";
 
 const RestrictedRoute = ({component: Component, location, authUser, ...rest}) =>
-  <Route
-    {...rest}
-    render={props =>
-      authUser
-        ? <Component {...props} />
-        : <Redirect
-          to={{
-            pathname: '/signin',
-            state: {from: location}
-          }}
-        />}
-  />;
+    <Route
+        {...rest}
+        render={props =>
+            authUser
+                ? <Component {...props} />
+                : <Redirect
+                    to={{
+                        pathname: '/signin',
+                        state: {from: location}
+                    }}
+                />}
+    />;
 
 const setLayoutType = (layoutType) => {
-  if (layoutType === LAYOUT_TYPE_FULL) {
-    document.body.classList.remove('boxed-layout');
-    document.body.classList.remove('framed-layout');
-    document.body.classList.add('full-layout');
-  } else if (layoutType === LAYOUT_TYPE_BOXED) {
-    document.body.classList.remove('full-layout');
-    document.body.classList.remove('framed-layout');
-    document.body.classList.add('boxed-layout');
-  } else if (layoutType === LAYOUT_TYPE_FRAMED) {
-    document.body.classList.remove('boxed-layout');
-    document.body.classList.remove('full-layout');
-    document.body.classList.add('framed-layout');
-  }
+    if (layoutType === LAYOUT_TYPE_FULL) {
+        document.body.classList.remove('boxed-layout');
+        document.body.classList.remove('framed-layout');
+        document.body.classList.add('full-layout');
+    } else if (layoutType === LAYOUT_TYPE_BOXED) {
+        document.body.classList.remove('full-layout');
+        document.body.classList.remove('framed-layout');
+        document.body.classList.add('boxed-layout');
+    } else if (layoutType === LAYOUT_TYPE_FRAMED) {
+        document.body.classList.remove('boxed-layout');
+        document.body.classList.remove('full-layout');
+        document.body.classList.add('framed-layout');
+    }
 };
 
 const setNavStyle = (navStyle) => {
-  if (navStyle === NAV_STYLE_DEFAULT_HORIZONTAL ||
-    navStyle === NAV_STYLE_DARK_HORIZONTAL ||
-    navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL ||
-    navStyle === NAV_STYLE_ABOVE_HEADER ||
-    navStyle === NAV_STYLE_BELOW_HEADER) {
-    document.body.classList.add('full-scroll');
-    document.body.classList.add('horizontal-layout');
-  } else {
-    document.body.classList.remove('full-scroll');
-    document.body.classList.remove('horizontal-layout');
-  }
+    if (navStyle === NAV_STYLE_DEFAULT_HORIZONTAL ||
+        navStyle === NAV_STYLE_DARK_HORIZONTAL ||
+        navStyle === NAV_STYLE_INSIDE_HEADER_HORIZONTAL ||
+        navStyle === NAV_STYLE_ABOVE_HEADER ||
+        navStyle === NAV_STYLE_BELOW_HEADER) {
+        document.body.classList.add('full-scroll');
+        document.body.classList.add('horizontal-layout');
+    } else {
+        document.body.classList.remove('full-scroll');
+        document.body.classList.remove('horizontal-layout');
+    }
 };
 
 const App = () => {
-  const locale = useSelector(({settings}) => settings.locale);
-  const navStyle = useSelector(({settings}) => settings.navStyle);
-  const layoutType = useSelector(({settings}) => settings.layoutType);
-  const themeType = useSelector(({settings}) => settings.themeType);
-  const isDirectionRTL = useSelector(({settings}) => settings.isDirectionRTL);
+    const locale = useSelector(({settings}) => settings.locale);
+    const navStyle = useSelector(({settings}) => settings.navStyle);
+    const layoutType = useSelector(({settings}) => settings.layoutType);
+    const themeType = useSelector(({settings}) => settings.themeType);
+    const isDirectionRTL = useSelector(({settings}) => settings.isDirectionRTL);
 
-  const {authUser, initURL} = useSelector(({auth}) => auth);
-  const dispatch = useDispatch();
+    const {authUser, initURL} = useSelector(({auth}) => auth);
+    const dispatch = useDispatch();
 
-  const location = useLocation();
-  const history = useHistory();
-  const match = useRouteMatch();
+    const location = useLocation();
+    const history = useHistory();
 
-  useEffect(() => {
-    if (isDirectionRTL) {
-      document.documentElement.classList.add('rtl');
-      document.documentElement.setAttribute('data-direction', 'rtl')
-    } else {
-      document.documentElement.classList.remove('rtl');
-      document.documentElement.setAttribute('data-direction', 'ltr')
-    }
-  }, [isDirectionRTL]);
+    useEffect(() => {
+        if (isDirectionRTL) {
+            document.documentElement.classList.add('rtl');
+            document.documentElement.setAttribute('data-direction', 'rtl')
+        } else {
+            document.documentElement.classList.remove('rtl');
+            document.documentElement.setAttribute('data-direction', 'ltr')
+        }
+    }, [isDirectionRTL]);
 
-  useEffect(() => {
-    if (locale)
-      document.documentElement.lang = locale.locale;
-  }, [locale]);
+    useEffect(() => {
+        if (locale)
+            document.documentElement.lang = locale.locale;
+    }, [locale]);
 
-  useEffect(() => {
-    if (themeType === THEME_TYPE_DARK) {
-      document.body.classList.add('dark-theme');
-    } else if (document.body.classList.contains('dark-theme')) {
-      document.body.classList.remove('dark-theme');
-    }
-  }, [themeType]);
+    useEffect(() => {
+        if (themeType === THEME_TYPE_DARK) {
+            document.body.classList.add('dark-theme');
+        } else if (document.body.classList.contains('dark-theme')) {
+            document.body.classList.remove('dark-theme');
+        }
+    }, [themeType]);
 
-  useEffect(() => {
-    if (initURL === '') {
-      dispatch(setInitUrl(location.pathname));
-    }
-  });
+    useEffect(() => {
+        if (initURL === '') {
+            dispatch(setInitUrl(location.pathname));
+        }
+    });
 
-  useEffect(() => {
-    if (location.pathname === '/') {
-      if (authUser === null) {
-        history.push('/signin');
-      } else if (initURL === '/signin') {
-        history.push('/admin/dashboard');
-      } else if (initURL === '/' || initURL === '') {
-        history.push('/home');
-      }
-      else {
-        history.push(initURL);
-      }
-    }
-  }, [authUser, initURL, location, history]);
+    useEffect(() => {
+        if (location.pathname === '/') {
+            if (authUser === null) {
+                history.push('/signin');
+            } else if (initURL === '/signin') {
+                history.push('/admin/dashboard');
+            } else if (initURL === '/' || initURL === '') {
+                history.push('/home');
+            } else {
+                history.push(initURL);
+            }
+        }
+    }, [authUser, initURL, location, history]);
 
-  useEffect(() => {
-    setLayoutType(layoutType);
-    setNavStyle(navStyle);
-  }, [layoutType, navStyle]);
+    useEffect(() => {
+        setLayoutType(layoutType);
+        setNavStyle(navStyle);
+    }, [layoutType, navStyle]);
 
-  const currentAppLocale = AppLocale[locale.locale];
+    const currentAppLocale = AppLocale[locale.locale];
 
-  return (
-    <ConfigProvider locale={currentAppLocale.antd} direction={isDirectionRTL ? 'rtl' : 'ltr'}>
-      <IntlProvider
-        locale={currentAppLocale.locale}
-        messages={currentAppLocale.messages}>
-        <Switch>
-          <Route exact path="/signin" component={SignIn}/>
-          <Route exact path="/signup" component={SignUp}/>
-          <RestrictedRoute path="/admin" authUser={authUser} location={location} component={MainApp}/>
-          <Route exact path="/home" component={HomeApp}/>
-        </Switch>
-      </IntlProvider>
-    </ConfigProvider>
-  )
+    return (
+        <ConfigProvider locale={currentAppLocale.antd} direction={isDirectionRTL ? 'rtl' : 'ltr'}>
+            <IntlProvider
+                locale={currentAppLocale.locale}
+                messages={currentAppLocale.messages}>
+                <Switch>
+                    <Route exact path="/signin" component={SignIn}/>
+                    <Route exact path="/signup" component={SignUp}/>
+                    <RestrictedRoute path="/admin" authUser={authUser} location={location} component={MainApp}/>
+                    <Route exact path="/home" component={HomeApp}/>
+                </Switch>
+            </IntlProvider>
+        </ConfigProvider>
+    )
 };
 
 export default memo(App);

@@ -4,50 +4,49 @@ import {Menu} from "antd";
 import {Link} from "react-router-dom";
 import IntlMessages from "../../util/IntlMessages";
 import {
-  NAV_STYLE_ABOVE_HEADER,
-  NAV_STYLE_BELOW_HEADER,
-  NAV_STYLE_DEFAULT_HORIZONTAL,
-  NAV_STYLE_INSIDE_HEADER_HORIZONTAL
+    NAV_STYLE_ABOVE_HEADER,
+    NAV_STYLE_BELOW_HEADER,
+    NAV_STYLE_DEFAULT_HORIZONTAL,
+    NAV_STYLE_INSIDE_HEADER_HORIZONTAL
 } from "../../constants/ThemeSetting";
 
 const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
 
 const HorizontalNav = () => {
-  const navStyle = useSelector(({settings}) => settings.navStyle);
-  const pathname = useSelector(({common}) => common.pathname);
+    const navStyle = useSelector(({settings}) => settings.navStyle);
+    const pathname = useSelector(({common}) => common.pathname);
 
-  const getNavStyleSubMenuClass = (navStyle) => {
-    switch (navStyle) {
-      case NAV_STYLE_DEFAULT_HORIZONTAL:
-        return "gx-menu-horizontal gx-submenu-popup-curve";
-      case NAV_STYLE_INSIDE_HEADER_HORIZONTAL:
-        return "gx-menu-horizontal gx-submenu-popup-curve gx-inside-submenu-popup-curve";
-      case NAV_STYLE_BELOW_HEADER:
-        return "gx-menu-horizontal gx-submenu-popup-curve gx-below-submenu-popup-curve";
-      case NAV_STYLE_ABOVE_HEADER:
-        return "gx-menu-horizontal gx-submenu-popup-curve gx-above-submenu-popup-curve";
-      default:
-        return "gx-menu-horizontal";
-    }
-  };
+    const getNavStyleSubMenuClass = (navStyle) => {
+        switch (navStyle) {
+            case NAV_STYLE_DEFAULT_HORIZONTAL:
+                return "gx-menu-horizontal gx-submenu-popup-curve";
+            case NAV_STYLE_INSIDE_HEADER_HORIZONTAL:
+                return "gx-menu-horizontal gx-submenu-popup-curve gx-inside-submenu-popup-curve";
+            case NAV_STYLE_BELOW_HEADER:
+                return "gx-menu-horizontal gx-submenu-popup-curve gx-below-submenu-popup-curve";
+            case NAV_STYLE_ABOVE_HEADER:
+                return "gx-menu-horizontal gx-submenu-popup-curve gx-above-submenu-popup-curve";
+            default:
+                return "gx-menu-horizontal";
+        }
+    };
 
-  const selectedKeys = pathname;
-  return (
-    <Menu
-      defaultOpenKeys={[selectedKeys]}
-      selectedKeys={[selectedKeys]}
-      mode="horizontal">
-      <SubMenu className={getNavStyleSubMenuClass(navStyle)} key="main" title={<IntlMessages id="sidebar.main"/>}>
-        <Menu.Item key="/admin/dashboard">
-          <Link to="/admin/dashboard">
-            <i className="icon icon-widgets"/>
-            <IntlMessages id="sidebar.samplePage"/>
-          </Link>
-        </Menu.Item>
-      </SubMenu>
-    </Menu>
-  );
+    const selectedKeys = pathname;
+    return (
+        <Menu
+            defaultOpenKeys={[selectedKeys]}
+            selectedKeys={[selectedKeys]}
+            mode="horizontal">
+            <SubMenu className={getNavStyleSubMenuClass(navStyle)} key="main" title={<IntlMessages id="sidebar.main"/>}>
+                <Menu.Item key="/admin/dashboard">
+                    <Link to="/admin/dashboard">
+                        <i className="icon icon-widgets"/>
+                        <IntlMessages id="sidebar.samplePage"/>
+                    </Link>
+                </Menu.Item>
+            </SubMenu>
+        </Menu>
+    );
 };
 
 HorizontalNav.propTypes = {};
