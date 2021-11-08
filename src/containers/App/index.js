@@ -110,6 +110,7 @@ const App = () => {
 
     useEffect(() => {
         if (location.pathname === '/') {
+            console.log(authUser);
             if (authUser === null) {
                 history.push('/signin');
             } else if (initURL === '/signin') {
