@@ -32,16 +32,15 @@ const HorizontalNav = () => {
     }
   };
 
-  const selectedKeys = pathname.substr(1);
-  const defaultOpenKeys = selectedKeys.split('/')[1];
+  const selectedKeys = pathname;
   return (
     <Menu
-      defaultOpenKeys={[defaultOpenKeys]}
+      defaultOpenKeys={[selectedKeys]}
       selectedKeys={[selectedKeys]}
       mode="horizontal">
       <SubMenu className={getNavStyleSubMenuClass(navStyle)} key="main" title={<IntlMessages id="sidebar.main"/>}>
-        <Menu.Item key="sample">
-          <Link to="/sample">
+        <Menu.Item key="/admin/dashboard">
+          <Link to="/admin/dashboard">
             <i className="icon icon-widgets"/>
             <IntlMessages id="sidebar.samplePage"/>
           </Link>

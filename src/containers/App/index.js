@@ -3,9 +3,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {Redirect, Route, Switch, useHistory, useLocation, useRouteMatch} from "react-router-dom";
 import {ConfigProvider} from 'antd';
 import {IntlProvider} from "react-intl";
-
 import AppLocale from "../../lngProvider";
 import MainApp from "./MainApp";
+import HomeApp from "../../routes/user";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import {setInitUrl} from "../../appRedux/actions";
@@ -112,9 +112,12 @@ const App = () => {
     if (location.pathname === '/') {
       if (authUser === null) {
         history.push('/signin');
-      } else if (initURL === '' || initURL === '/' || initURL === '/signin') {
-        history.push('/sample');
-      } else {
+      } else if (initURL === '/signin') {
+        history.push('/admin/dashboard');
+      } else if (initURL === '/' || initURL === '') {
+        history.push('/home');
+      }
+      else {
         history.push(initURL);
       }
     }
@@ -133,9 +136,10 @@ const App = () => {
         locale={currentAppLocale.locale}
         messages={currentAppLocale.messages}>
         <Switch>
-          <Route exact path='/signin' component={SignIn}/>
-          <Route exact path='/signup' component={SignUp}/>
-          <RestrictedRoute path={`${match.url}`} authUser={authUser} location={location} component={MainApp}/>
+          <Route exact path="/signin" component={SignIn}/>
+          <Route exact path="/signup" component={SignUp}/>
+          <RestrictedRoute path="/admin" authUser={authUser} location={location} component={MainApp}/>
+          <Route exact path="/home" component={HomeApp}/>
         </Switch>
       </IntlProvider>
     </ConfigProvider>
