@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React from "react";
 import {Layout, Popover} from "antd";
 import {Link} from "react-router-dom";
 import languageData from "./languageData";
 import {switchLanguage, toggleCollapsedSideNav} from "../../appRedux/actions";
-import SearchBox from "../../components/SearchBox";
 import UserInfo from "../../components/UserInfo";
 import AppNotification from "../../components/AppNotification";
 import MailNotification from "../../components/MailNotification";
@@ -20,7 +19,6 @@ const Topbar = () => {
     const {locale, navStyle} = useSelector(({settings}) => settings);
     const navCollapsed = useSelector(({common}) => common.navCollapsed);
     const width = useSelector(({common}) => common.width);
-    const [searchText, setSearchText] = useState('');
     const dispatch = useDispatch();
 
     const languageMenu = () => (
@@ -35,10 +33,6 @@ const Topbar = () => {
             )}
         </ul>);
 
-    const updateSearchChatUser = (evt) => {
-        setSearchText(evt.target.value);
-    };
-
     return (
         <Header>
             {navStyle === NAV_STYLE_DRAWER || ((navStyle === NAV_STYLE_FIXED || navStyle === NAV_STYLE_MINI_SIDEBAR) && width < TAB_SIZE) ?
@@ -52,21 +46,7 @@ const Topbar = () => {
             <Link to="/" className="gx-d-block gx-d-lg-none gx-pointer">
                 <img alt="" src={("/assets/images/w-logo.png")}/></Link>
 
-            <SearchBox styleName="gx-d-none gx-d-lg-block gx-lt-icon-search-bar-lg"
-                       placeholder="Search in app..."
-                       onChange={updateSearchChatUser}
-                       value={searchText}/>
             <ul className="gx-header-notifications gx-ml-auto">
-                <li className="gx-notify gx-notify-search gx-d-inline-block gx-d-lg-none">
-                    <Popover overlayClassName="gx-popover-horizantal" placement="bottomRight" content={
-                        <SearchBox styleName="gx-popover-search-bar"
-                                   placeholder="Search in app..."
-                                   onChange={updateSearchChatUser}
-                                   value={searchText}/>
-                    } trigger="click">
-                        <span className="gx-pointer gx-d-block"><i className="icon icon-search-new"/></span>
-                    </Popover>
-                </li>
                 {width >= TAB_SIZE ? null :
                     <Auxiliary>
                         <li className="gx-notify">

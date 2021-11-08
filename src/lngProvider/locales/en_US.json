@@ -33,5 +33,7 @@
     "notification.password_incorrect": "Incorrect password",
     "notification.param_not_null": "The input data is incomplete",
     "table.search": "Search",
-    "filter.select": "Select"
+    "filter.select": "Select",
+    "auth.logout": "Logout",
+    "auth.my.account": "Thông tin cá nhân"
 }

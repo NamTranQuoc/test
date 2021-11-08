@@ -2,15 +2,14 @@ import React from "react";
 import {useDispatch} from "react-redux";
 import {Avatar, Popover} from "antd";
 import {userSignOut} from "../../appRedux/actions";
+import IntlMessages from "../../util/IntlMessages";
 
 const UserProfile = () => {
     const dispatch = useDispatch();
     const userMenuOptions = (
         <ul className="gx-user-popover">
-            <li>My Account</li>
-            <li>Connections</li>
-            <li onClick={() => dispatch(userSignOut())}>Logout
-            </li>
+            <li><IntlMessages id="auth.my.account"/></li>
+            <li onClick={() => dispatch(userSignOut())}><IntlMessages id="auth.logout"/></li>
         </ul>
     );
 

@@ -33,5 +33,7 @@
     "notification.password_incorrect": "Mật khẩu không chính xác",
     "notification.param_not_null": "Dữ liệu đầu vào không đầy đủ",
     "table.search": "Tìm kiếm",
-    "filter.select": "Chọn"
+    "filter.select": "Chọn",
+    "auth.logout": "Đăng xuất",
+    "auth.my.account": "Thông tin cá nhân"
 }
