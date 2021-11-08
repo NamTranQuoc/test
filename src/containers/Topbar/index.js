@@ -26,7 +26,6 @@ const Topbar = () => {
   const dispatch = useDispatch();
 
   const languageMenu = () => (
-    <CustomScrollbars className="gx-popover-lang-scroll">
       <ul className="gx-sub-popover">
         {languageData.map(language =>
           <li className="gx-media gx-pointer" key={JSON.stringify(language)} onClick={() =>
@@ -36,8 +35,7 @@ const Topbar = () => {
             <span className="gx-language-text">{language.name}</span>
           </li>
         )}
-      </ul>
-    </CustomScrollbars>);
+      </ul>);
 
   const updateSearchChatUser = (evt) => {
     setSearchText(evt.target.value);
