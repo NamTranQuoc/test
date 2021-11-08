@@ -44,45 +44,42 @@ const SidebarContent = ({sidebarCollapsed, setSidebarCollapsed}) => {
 
                         <Menu.Item key="/admin/dashboard">
                             <Link to="/admin/dashboard"><i className="icon icon-widgets"/>
-                                <IntlMessages id="sidebar.dashboard"/>
+                                <span><IntlMessages id="sidebar.dashboard"/></span>
                             </Link>
                         </Menu.Item>
                         <Menu.SubMenu key="managerUser"
                                       title={
-                                          <span>
-                                                  <i className="icon icon-avatar"/><IntlMessages
-                                              id="sidebar.managerUser"/>
-                                              </span>}>
+                                          <span><i className="icon icon-avatar"/>
+                                              <span><IntlMessages id="sidebar.managerUser"/>
+                                              </span></span>}>
                             <Menu.Item key="/admin/student">
                                 <Link to="/admin/student">
-                                    <IntlMessages id="sidebar.managerUser.student"/>
+                                    <span><IntlMessages id="sidebar.managerUser.student"/></span>
                                 </Link>
                             </Menu.Item>
                             <Menu.Item key="/admin/teacher">
                                 <Link to="/admin/teacher">
-                                    <IntlMessages id="sidebar.managerUser.teacher"/>
+                                    <span><IntlMessages id="sidebar.managerUser.teacher"/></span>
                                 </Link>
                             </Menu.Item>
                             <Menu.Item key="/admin/receptionist">
                                 <Link to="/admin/receptionist">
-                                    <IntlMessages id="sidebar.managerUser.receptionist"/>
+                                    <span><IntlMessages id="sidebar.managerUser.receptionist"/></span>
                                 </Link>
                             </Menu.Item>
                         </Menu.SubMenu>
                         <Menu.SubMenu key="managerStudy"
                                       title={
-                                          <span>
-                                <i className="icon icon-ckeditor"/>
-                                <IntlMessages id="sidebar.managerStudy"/>
-                              </span>}>
+                                          <span><i className="icon icon-ckeditor"/>
+                                <span><IntlMessages id="sidebar.managerStudy"/></span></span>}>
                             <Menu.Item key="/admin/course-category">
                                 <Link to="/admin/course-category">
-                                    <IntlMessages id="sidebar.managerStudy.courseCategory"/>
+                                    <span><IntlMessages id="sidebar.managerStudy.courseCategory"/></span>
                                 </Link>
                             </Menu.Item>
                             <Menu.Item key="/admin/course">
                                 <Link to="/admin/course">
-                                    <IntlMessages id="sidebar.managerStudy.course"/>
+                                    <span><IntlMessages id="sidebar.managerStudy.course"/></span>
                                 </Link>
                             </Menu.Item>
                         </Menu.SubMenu>
