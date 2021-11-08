@@ -20,7 +20,7 @@ const SignIn = () => {
             }, 100);
         }
         if (authUser !== null) {
-            history.push('/');
+            history.push('/admin/dashboard');
         }
     });
 
