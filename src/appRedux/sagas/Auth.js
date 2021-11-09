@@ -1,12 +1,6 @@
 import {all, call, fork, put, takeEvery} from "redux-saga/effects";
 import {SIGNIN_USER, SIGNOUT_USER,} from "../../constants/ActionTypes";
-import {
-    hideLoader,
-    setInitUrl, showLoader,
-    showMessage,
-    userSignInSuccess,
-    userSignOutSuccess,
-} from "../actions";
+import {hideLoader, setInitUrl, showLoader, showMessage, userSignInSuccess, userSignOutSuccess,} from "../actions";
 import axios from "axios";
 import {host} from "../store/Host";
 

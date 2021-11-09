@@ -17,17 +17,16 @@ const initialSettings = {
     themeColor: '',
 
     isDirectionRTL: false,
-    locale: {
-        languageId: 'english',
-        locale: 'en',
-        name: 'English',
-        icon: 'us'
-    }
+    locale: localStorage.getItem('locale') == null ? {
+        languageId: 'vietnam',
+        locale: 'vi',
+        name: 'Việt Nam',
+        icon: 'vn'
+    } : JSON.parse(localStorage.getItem('locale'))
 };
 
 const SettingsReducer = (state = initialSettings, action) => {
     switch (action.type) {
-
         case THEME_TYPE:
             return {
                 ...state,
@@ -44,7 +43,6 @@ const SettingsReducer = (state = initialSettings, action) => {
                 ...state,
                 isDirectionRTL: action.rtlStatus
             };
-
         case NAV_STYLE:
             return {
                 ...state,
@@ -55,7 +53,6 @@ const SettingsReducer = (state = initialSettings, action) => {
                 ...state,
                 layoutType: action.layoutType
             };
-
         case SWITCH_LANGUAGE:
             return {
                 ...state,

@@ -1,8 +1,4 @@
-import {
-    SIGNIN_USER_SUCCESS,
-    SIGNOUT_USER_SUCCESS,
-    SIGNUP_USER_SUCCESS
-} from "../../constants/ActionTypes";
+import {SIGNIN_USER_SUCCESS, SIGNOUT_USER_SUCCESS, SIGNUP_USER_SUCCESS} from "../../constants/ActionTypes";
 
 const INIT_STATE = {
     authUser: localStorage.getItem('token'),

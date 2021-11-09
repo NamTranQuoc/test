@@ -3,6 +3,7 @@ import {connectRouter} from 'connected-react-router'
 import Settings from "./Settings";
 import Auth from "./Auth";
 import Common from "./Common";
+import GetList from "./GetList";
 
 
 const createRootReducer = (history) => combineReducers({
@@ -10,6 +11,7 @@ const createRootReducer = (history) => combineReducers({
     settings: Settings,
     auth: Auth,
     common: Common,
+    getList: GetList,
 });
 
 export default createRootReducer

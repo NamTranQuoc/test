@@ -20,4 +20,8 @@ export const INIT_URL = 'INIT_URL';
 export const ON_HIDE_LOADER_TABLE = 'ON_HIDE_LOADER_TABLE';
 export const CLEAR_ITEMS = 'CLEAR_ITEMS';
 
+//get list
+export const GET_MEMBER = 'GET_MEMBER';
+export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
+
 
