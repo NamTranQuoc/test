@@ -2,10 +2,11 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Col, DatePicker, Form, Input, Modal, Row, Select, Table} from "antd";
 import IntlMessages from "../../../../util/IntlMessages";
 import {useDispatch, useSelector} from "react-redux";
-import {getListMember} from "../../../../appRedux/actions";
+import {addMember, getListMember} from "../../../../appRedux/actions";
 import {getDate, getGender} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
+import {createNotification} from "../../../../components/Notification";
 
 const {RangePicker} = DatePicker;
 let param = {
@@ -102,6 +103,15 @@ const StudentPage = () => {
 
     function onShow() {
         setShowModal(!showModal);
+    }
+
+    function onSubmit(member) {
+        member = {
+            ...member,
+            dob: member.dob.unix() * 1000,
+            type: "student"
+        }
+        dispatch(addMember(member));
     }
 
     return (
@@ -209,59 +219,116 @@ const StudentPage = () => {
                 }
             }/>
             <Modal
-                title="Thông tin loại khóa học"
+                title={<IntlMessages id="admin.user.form.student.title"/>}
                 visible={showModal}
                 footer={
-                    <Button type="primary" form={"normal_login"}>Lưu</Button>
+                    <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages id="admin.user.form.save"/>}</Button>
                 }
                 onCancel={onShow}
             >
-                <Form>
+                <Form
+                    onFinish={onSubmit}
+                    id="add-edit-form"
+                    initialValues={{
+                        gender: "male",
+                        address: ""
+                    }}>
                     <Row>
                         <Col span={12} push={6}>
-                            <Image/>
+                            <Col span={12}>
+                                <Image />
+                            </Col>
                         </Col>
                     </Row>
                     <Row>
                         <Col span={12}>
                             <Form.Item
-                                label={"Tên loại khóa học"}
+                                label={<IntlMessages id="admin.user.student.table.name"/>}
                                 labelCol={{span: 24}}
                                 wrapperCol={{span: 24}}
-                                name="category_name"
+                                name="name"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Vui lòng nhập tên loại khóa học!',
+                                        message: <IntlMessages id="admin.user.form.name"/>,
                                     },
                                 ]}
                             >
-                                <Input placeholder="Toeic"/>
+                                <Input placeholder="Nguyen Van A"/>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label="Trạng thái"
-                                       name="status"
+                            <Form.Item label={<IntlMessages id="admin.user.student.table.gender"/>}
+                                       name="gender"
                                        labelCol={{span: 24}}
                                        wrapperCol={{span: 24}}
                                        rules={[
                                            {
                                                required: true,
-                                               message: 'Vui lòng nhập tên loại khóa học!',
+                                               message: <IntlMessages id="admin.user.form.gender"/>,
                                            },
                                        ]}>
                                 <Select>
-                                    <Select.Option value="ACTIVE">Hoạt động</Select.Option>
-                                    <Select.Option value="INACTIVE">Không hoạt động</Select.Option>
+                                    <Select.Option value="male">{getGender("male")}</Select.Option>
+                                    <Select.Option value="female">{getGender("female")}</Select.Option>
+                                    <Select.Option value="other">{getGender("other")}</Select.Option>
                                 </Select>
                             </Form.Item>
                         </Col>
-                        <Col className="gutter-row" span={24}>
+                        <Col span={12}>
                             <Form.Item
-                                label={"Mô tả"}
+                                label={<IntlMessages id="admin.user.student.table.phoneNumber"/>}
                                 labelCol={{span: 24}}
                                 wrapperCol={{span: 24}}
-                                name="description">
+                                name="phone_number"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: <IntlMessages id="admin.user.form.phoneNumber"/>,
+                                    },
+                                ]}
+                            >
+                                <Input placeholder="0987654321"/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                label={<IntlMessages id="admin.user.student.table.dob"/>}
+                                labelCol={{span: 24}}
+                                wrapperCol={{span: 24}}
+                                name="dob"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: <IntlMessages id="admin.user.form.dob"/>,
+                                    },
+                                ]}>
+                                <DatePicker style={{width: "100%"}}/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item
+                                label={<IntlMessages id="admin.user.student.table.email"/>}
+                                labelCol={{span: 24}}
+                                wrapperCol={{span: 24}}
+                                name="email"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: <IntlMessages id="admin.user.form.email"/>,
+                                        type: "email"
+                                    },
+                                ]}
+                            >
+                                <Input placeholder="nguyenvan@gmail.com"/>
+                            </Form.Item>
+                        </Col>
+                        <Col span={24}>
+                            <Form.Item
+                                label={<IntlMessages id="admin.user.student.table.address"/>}
+                                labelCol={{span: 24}}
+                                wrapperCol={{span: 24}}
+                                name="address">
                                 <Input.TextArea rows={4}/>
                             </Form.Item>
                         </Col>

@@ -1,4 +1,4 @@
-import {GET_LIST_SUCCESS, GET_MEMBER, ON_HIDE_LOADER_TABLE} from "../../constants/ActionTypes";
+import {ADD_MEMBER, GET_LIST_SUCCESS, GET_MEMBER, ON_HIDE_LOADER_TABLE} from "../../constants/ActionTypes";
 
 export const getListMember = (param) => {
     return {
@@ -18,5 +18,13 @@ export const getListSuccess = (payload) => {
 export const hideLoaderTable = () => {
     return {
         type: ON_HIDE_LOADER_TABLE,
+    };
+};
+
+export const addMember = (member) => {
+    console.log("action");
+    return {
+        type: ADD_MEMBER,
+        payload: member
     };
 };

@@ -7,6 +7,7 @@ const INIT_STATE = {
 };
 
 const GetListReducer = (state = INIT_STATE, action) => {
+    console.log("reducers");
     switch (action.type) {
         case GET_MEMBER: {
             return {

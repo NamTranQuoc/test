@@ -23,5 +23,6 @@ export const CLEAR_ITEMS = 'CLEAR_ITEMS';
 //get list
 export const GET_MEMBER = 'GET_MEMBER';
 export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
+export const ADD_MEMBER = 'ADD_MEMBER';
 
 

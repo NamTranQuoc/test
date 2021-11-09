@@ -11,6 +11,9 @@
     "admin.user.student.table.index": "STT",
     "admin.user.student.table.id": "ID",
     "admin.user.student.table.name": "Họ và tên",
+    "admin.user.student.table.phoneNumber": "Số điện thoại",
+    "admin.user.student.table.dob": "Ngày sinh",
+    "admin.user.student.table.address": "Địa chỉ",
     "admin.user.gender.male": "Nam",
     "admin.user.gender.female": "Nữ",
     "admin.user.gender.other": "Khác",
@@ -35,5 +38,12 @@
     "table.search": "Tìm kiếm",
     "filter.select": "Chọn",
     "auth.logout": "Đăng xuất",
-    "auth.my.account": "Thông tin cá nhân"
+    "auth.my.account": "Thông tin cá nhân",
+    "admin.user.form.name": "Vui lòng nhập họ và tên",
+    "admin.user.form.gender": "Vui lòng chọn giới tính",
+    "admin.user.form.phoneNumber": "Vui lòng nhập số điện thoại",
+    "admin.user.form.dob": "Vui lòng nhập ngày sinh",
+    "admin.user.form.email": "Vui lòng nhập email",
+    "admin.user.form.student.title": "Thông tin học viên",
+    "admin.user.form.save": "Lưu"
 }

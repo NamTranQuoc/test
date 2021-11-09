@@ -11,6 +11,9 @@
     "admin.user.student.table.index": "Serial",
     "admin.user.student.table.id": "ID",
     "admin.user.student.table.name": "Name",
+    "admin.user.student.table.phoneNumber": "Phone number",
+    "admin.user.student.table.dob": "Day of birth",
+    "admin.user.student.table.address": "Address",
     "admin.user.gender.male": "Male",
     "admin.user.gender.female": "Female",
     "admin.user.gender.other": "Other",
@@ -35,5 +38,12 @@
     "table.search": "Search",
     "filter.select": "Select",
     "auth.logout": "Logout",
-    "auth.my.account": "Thông tin cá nhân"
+    "auth.my.account": "My account",
+    "admin.user.form.name": "Please enter full name",
+    "admin.user.form.gender": "Please select gender",
+    "admin.user.form.phoneNumber": "Please enter phone number",
+    "admin.user.form.dob": "Please enter day of birth",
+    "admin.user.form.email": "Please enter email",
+    "admin.user.form.student.title": "Student information",
+    "admin.user.form.save": "Save"
 }
