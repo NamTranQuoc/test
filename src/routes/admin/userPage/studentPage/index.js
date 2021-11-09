@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getListMember} from "../../../../appRedux/actions";
 import {getDate, getGender} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
+import Image from "../../../../components/uploadImage";
 
 const {RangePicker} = DatePicker;
 let param = {
@@ -85,6 +86,7 @@ const StudentPage = () => {
             dispatch(getListMember(param));
         }
     }
+
     function onChangeDatePicker(dates) {
         if (dates === null || dates.length === 0) {
             setStyle("150px");
@@ -99,14 +101,18 @@ const StudentPage = () => {
     }
 
     function onShow() {
-        console.log(showModal);
         setShowModal(!showModal);
     }
 
     return (
         <Card title={<h2><IntlMessages id="admin.user.student.title"/></h2>}
-              extra={<Button type="primary" shape="circle" icon={<PlusOutlined />} size="large" style={{float: "right"}}
-                             onClick={onShow}/>}>
+              extra={<Button type="primary"
+                             shape="circle"
+                             icon={<PlusOutlined/>}
+                             size="large"
+                             style={{float: "right"}}
+                             onClick={onShow}/>}
+              className="gx-card">
             <Form layout="inline" style={{marginBottom: "10px", marginTop: "10px"}}>
                 <Form.Item label={<IntlMessages id="admin.user.student.table.gender"/>}
                            name="genders"
@@ -206,11 +212,16 @@ const StudentPage = () => {
                 title="Thông tin loại khóa học"
                 visible={showModal}
                 footer={
-                    <Button type="primary" form={"normal_login"} >Lưu</Button>
+                    <Button type="primary" form={"normal_login"}>Lưu</Button>
                 }
                 onCancel={onShow}
             >
                 <Form>
+                    <Row>
+                        <Col span={12} push={6}>
+                            <Image/>
+                        </Col>
+                    </Row>
                     <Row>
                         <Col span={12}>
                             <Form.Item
