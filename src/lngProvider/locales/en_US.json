@@ -35,6 +35,8 @@
     "notification.member_exist": "Member already exists",
     "notification.password_incorrect": "Incorrect password",
     "notification.param_not_null": "The input data is incomplete",
+    "notification.type_deny": "File format is not correct",
+    "notification.size_deny": "File size is larger than allowed",
     "table.search": "Search",
     "filter.select": "Select",
     "auth.logout": "Logout",

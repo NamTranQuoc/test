@@ -24,5 +24,6 @@ export const CLEAR_ITEMS = 'CLEAR_ITEMS';
 export const GET_MEMBER = 'GET_MEMBER';
 export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
 export const ADD_MEMBER = 'ADD_MEMBER';
+export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 
 

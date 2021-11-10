@@ -27,13 +27,18 @@ const errors = {
         message: <IntlMessages id="notification.success_add"/>,
         type: "success",
     },
-    success_update: {
-        message: <IntlMessages id="notification.success_update"/>,
-        type: "success",
+    type_deny: {
+        message: <IntlMessages id="notification.type_deny"/>,
+        type: "error",
+    },
+    size_deny: {
+        message: <IntlMessages id="notification.size_deny"/>,
+        type: "error",
     },
 };
 
 export function createNotification(message) {
+    console.error(message);
     if (errors[message] === null) {
         return NotificationManager.error(message);
     } else {

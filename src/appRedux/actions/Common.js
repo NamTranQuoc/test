@@ -4,7 +4,7 @@ import {
     INIT_URL,
     ON_HIDE_LOADER,
     ON_SHOW_LOADER,
-    SHOW_MESSAGE,
+    SHOW_MESSAGE, UPLOAD_IMAGE,
 } from "../../constants/ActionTypes";
 
 export const showMessage = (message) => {
@@ -42,6 +42,16 @@ export const hideLoader = () => {
 export const clearItems = () => {
     return {
         type: CLEAR_ITEMS,
+    }
+}
+
+export const uploadImage = (image, path) => {
+    return {
+        type: UPLOAD_IMAGE,
+        payload: {
+            image: image,
+            path: path
+        }
     }
 }
 

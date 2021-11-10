@@ -35,6 +35,8 @@
     "notification.member_exist": "Người dùng đã tồn tại",
     "notification.password_incorrect": "Mật khẩu không chính xác",
     "notification.param_not_null": "Dữ liệu đầu vào không đầy đủ",
+    "notification.type_deny": "Định dạng file không đúng",
+    "notification.size_deny": "Kích thước file lớn hơn mức cho phép",
     "table.search": "Tìm kiếm",
     "filter.select": "Chọn",
     "auth.logout": "Đăng xuất",

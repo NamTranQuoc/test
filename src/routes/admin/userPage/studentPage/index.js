@@ -1,37 +1,24 @@
 import React, {useEffect, useState} from "react";
-import {
-    Button,
-    Card,
-    Col,
-    DatePicker,
-    Dropdown,
-    Form,
-    Input,
-    Menu,
-    Modal,
-    Row,
-    Select,
-    Table
-} from "antd";
+import {Button, Card, Col, DatePicker, Form, Input, Modal, Row, Select, Table} from "antd";
 import IntlMessages from "../../../../util/IntlMessages";
 import {useDispatch, useSelector} from "react-redux";
 import {addMember, getListMember} from "../../../../appRedux/actions";
 import {getDate, getGender} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
-import moment from 'moment'
+import moment from 'moment';
 
 moment.updateLocale('vi', {
-    weekdaysMin : ["Cn", "T2", "T3", "T4", "T5", "T6", "T7"],
-    monthsShort: ["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"]
-    });
+    weekdaysMin: ["Cn", "T2", "T3", "T4", "T5", "T6", "T7"],
+    monthsShort: ["Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"]
+});
 
 const {RangePicker} = DatePicker;
 let param = {
     page: 1,
     size: 10,
     sort: {
-        is_asc: true,
+        is_asc: false,
         field: "_id"
     },
     types: ["student"],
@@ -50,6 +37,7 @@ const StudentPage = () => {
     const {locale} = useSelector(({settings}) => settings);
     const [showModal, setShowModal] = useState(false);
     const [style, setStyle] = useState("150px");
+    const [image, setImage] = useState(null);
 
     function onChange(pagination, filters, sorter) {
         if (sorter != null && sorter.columnKey != null && sorter.order != null) {
@@ -82,7 +70,8 @@ const StudentPage = () => {
         if (items.length === 0) {
             dispatch(getListMember(param));
         }
-    }, []);
+        setShowModal(false);
+    }, [items]);
 
     function showTotalItems(total) {
         return <span><IntlMessages id="table.total.items"/>: {total}</span>;
@@ -132,7 +121,8 @@ const StudentPage = () => {
         member = {
             ...member,
             dob: member.dob.unix() * 1000,
-            type: "student"
+            type: "student",
+            avatar: image
         }
         dispatch(addMember(member));
     }
@@ -270,7 +260,8 @@ const StudentPage = () => {
                 title={<IntlMessages id="admin.user.form.student.title"/>}
                 visible={showModal}
                 footer={
-                    <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages id="admin.user.form.save"/>}</Button>
+                    <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages
+                        id="admin.user.form.save"/>}</Button>
                 }
                 onCancel={onShow}
             >
@@ -281,11 +272,9 @@ const StudentPage = () => {
                         gender: "male",
                         address: ""
                     }}>
-                    <Row>
-                        <Col span={12} push={6}>
-                            <Col span={12}>
-                                <Image />
-                            </Col>
+                    <Row justify="center">
+                        <Col span={12}>
+                            <Image setImage={setImage}/>
                         </Col>
                     </Row>
                     <Row>

@@ -2,7 +2,15 @@ import {all, call, fork, put, takeEvery} from "redux-saga/effects";
 import {ADD_MEMBER, GET_MEMBER} from "../../constants/ActionTypes";
 import axios from "axios";
 import {host} from "../store/Host";
-import {getListSuccess, hideLoader, hideLoaderTable, showLoader, showMessage, getListMember as getListMemberAction} from "../actions";
+import {
+    getListSuccess,
+    hideLoader,
+    hideLoaderTable,
+    showLoader,
+    showMessage,
+    getListMember as getListMemberAction,
+    uploadImage
+} from "../actions";
 
 const INSTRUCTOR_API_URL = `${host}/member`;
 
@@ -57,10 +65,21 @@ function* addMemberGenerate({payload}) {
     yield put(showLoader());
     try {
         const response = yield call(addMemberRequest, payload);
+        console.log(response.data.code !== 9999)
         if (response.data.code !== 9999) {
             yield put(showMessage(response.data.message));
         } else {
-            yield put(getListMemberAction());
+            yield put(uploadImage(payload.avatar, response.data.payload.avatar));
+            yield put(getListMemberAction({
+                page: 1,
+                size: 10,
+                sort: {
+                    is_asc: false,
+                    field: "_id"
+                },
+                types: ["student"],
+            }));
+            yield put(showMessage("success_add"));
         }
     } catch (error) {
         yield put(showMessage(error));
