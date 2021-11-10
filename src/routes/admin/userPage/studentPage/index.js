@@ -71,6 +71,10 @@ const StudentPage = () => {
             dispatch(getListMember(param));
         }
         setShowModal(false);
+    }, []);
+
+    useEffect(() => {
+        setShowModal(false);
     }, [items]);
 
     function showTotalItems(total) {
