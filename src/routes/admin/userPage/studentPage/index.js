@@ -1,5 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Col, ConfigProvider, DatePicker, Form, Input, Modal, Row, Select, Table} from "antd";
+import {
+    Button,
+    Card,
+    Col,
+    DatePicker,
+    Dropdown,
+    Form,
+    Input,
+    Menu,
+    Modal,
+    Row,
+    Select,
+    Table
+} from "antd";
 import IntlMessages from "../../../../util/IntlMessages";
 import {useDispatch, useSelector} from "react-redux";
 import {addMember, getListMember} from "../../../../appRedux/actions";
@@ -25,6 +38,11 @@ let param = {
     keyword: "",
     genders: []
 }
+
+const options = [
+    'Edit',
+    'Delete',
+];
 
 const StudentPage = () => {
     const dispatch = useDispatch();
@@ -119,6 +137,21 @@ const StudentPage = () => {
         dispatch(addMember(member));
     }
 
+    const menus = () => (<Menu onClick={(e) => {
+        if (e.key === 'Edit') {
+            console.log("edit");
+        } else {
+            console.log("delete");
+        }
+    }
+    }>
+        {options.map(option =>
+            <Menu.Item key={option}>
+                {option}
+            </Menu.Item>,
+        )}
+    </Menu>);
+
     return (
         <Card title={<h2><IntlMessages id="admin.user.student.title"/></h2>}
               extra={<Button type="primary"
@@ -166,23 +199,22 @@ const StudentPage = () => {
                        [
                            {
                                key: "index",
-                               title: <IntlMessages id="admin.user.student.table.index"/>,
                                dataIndex: "index",
                                render: (text, record, index) => index + 1,
-                               width: '10%',
+                               width: 50,
                            },
                            {
                                key: "_id",
                                title: <IntlMessages id="admin.user.student.table.id"/>,
                                dataIndex: "_id",
-                               width: "25%",
+                               width: 250,
                                sorter: true
                            },
                            {
                                key: "name",
                                title: <IntlMessages id="admin.user.student.table.name"/>,
                                dataIndex: "name",
-                               width: "20%",
+                               width: 250,
                                sorter: true
                            },
                            {
@@ -190,14 +222,14 @@ const StudentPage = () => {
                                title: <IntlMessages id="admin.user.student.table.gender"/>,
                                dataIndex: "gender",
                                render: (gender) => getGender(gender),
-                               width: "10%",
+                               width: 100,
                                sorter: true,
                            },
                            {
                                key: "email",
                                title: <IntlMessages id="admin.user.student.table.email"/>,
                                dataIndex: "email",
-                               width: "20%",
+                               width: 250,
                                sorter: true
                            },
                            {
@@ -205,8 +237,19 @@ const StudentPage = () => {
                                title: <IntlMessages id="admin.user.student.table.createdDate"/>,
                                dataIndex: "create_date",
                                render: (create_date) => getDate(create_date),
-                               width: "15%",
+                               width: 150,
                                sorter: true
+                           },
+                           {
+                               key: "action",
+                               dataIndex: "_id",
+                               render: (_id) => (<div>
+                                   <Dropdown overlay={menus} placement="bottomRight" trigger={['click']}>
+                                       <i className="gx-icon-btn icon icon-ellipse-v"/>
+                                   </Dropdown>
+                               </div>),
+                               fixed: 'right',
+                               width: 60,
                            },
                        ]
                    }
