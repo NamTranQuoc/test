@@ -1,5 +1,5 @@
 import {
-    ADD_MEMBER,
+    ADD_MEMBER, DELETE_MEMBER,
     GET_LIST_SUCCESS,
     GET_MEMBER,
     ON_HIDE_LOADER_TABLE,
@@ -34,9 +34,23 @@ export const addMember = (member) => {
     };
 };
 
-export const updateMember = (member) => {
+export const updateMember = (member, param) => {
     return {
         type: UPDATE_MEMBER,
-        payload: member
+        payload: {
+            member: member,
+            param: param
+        }
+    };
+};
+
+export const deleteMember = (id, type, param) => {
+    return {
+        type: DELETE_MEMBER,
+        payload: {
+            id: id,
+            type: type,
+            param: param
+        }
     };
 };

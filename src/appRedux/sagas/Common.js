@@ -17,7 +17,7 @@ function* setInitUrlGenerate({payload}) {
 
 function* uploadImageGenerate({payload}) {
     if (payload.image != null) {
-        yield storage.ref(`images/${payload.path}`).put(payload.image);
+        yield storage.ref(`images/${payload.path}`).put(payload.image, {contentType: "image/png"});
     }
 }
 

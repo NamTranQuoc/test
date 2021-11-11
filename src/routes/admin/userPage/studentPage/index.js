@@ -15,6 +15,7 @@ import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
 import moment from 'moment';
 import "./index.css";
+import DeleteModal from "./deleteModal";
 
 moment.updateLocale('vi', {
     weekdaysMin: ["Cn", "T2", "T3", "T4", "T5", "T6", "T7"],
@@ -42,6 +43,7 @@ const StudentPage = () => {
     const [style, setStyle] = useState("150px");
     const [image, setImage] = useState(null);
     const [urlAvatar, setUrlAvatar] = useState(null);
+    const [action, setAction] = useState("edit");
 
     function onChange(pagination, filters, sorter) {
         if (sorter != null && sorter.columnKey != null && sorter.order != null) {
@@ -125,7 +127,7 @@ const StudentPage = () => {
                 type: "student",
                 avatar: image
             }
-            dispatch(updateMember(member));
+            dispatch(updateMember(member, param));
         } else {
             member = {
                 ...member,
@@ -134,6 +136,10 @@ const StudentPage = () => {
                 avatar: image
             }
             dispatch(addMember(member));
+            param = {
+                ...param,
+                page: 1
+            }
         }
 
     }
@@ -141,6 +147,7 @@ const StudentPage = () => {
     function showModal() {
         dispatch(onSelectIndex(-1));
         setUrlAvatar(null);
+        setAction("edit");
         if (hasShowModal) {
             dispatch(onHideModal());
         } else {
@@ -176,19 +183,20 @@ const StudentPage = () => {
 
     const menus = (index) => (<Menu onClick={(e) => {
         if (e.key === 'delete') {
-            console.log("delete");
+            setAction("delete");
         } else {
-            dispatch(onSelectIndex(index));
-            dispatch(onShowModal());
+            setAction("edit");
         }
+        dispatch(onSelectIndex(index));
+        dispatch(onShowModal());
     }}>
-        <Menu.Item key="edit">Edit</Menu.Item>
-        <Menu.Item key="delete">Delete</Menu.Item>
+        <Menu.Item key="edit"><IntlMessages id="admin.user.form.edit"/></Menu.Item>
+        <Menu.Item key="delete"><IntlMessages id="admin.user.form.delete"/></Menu.Item>
     </Menu>);
 
     const modal = () => (<Modal
         title={<IntlMessages id="admin.user.form.student.title"/>}
-        visible={hasShowModal}
+        visible={hasShowModal && action !== "delete"}
         footer={
             <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages
                 id="admin.user.form.save"/>}</Button>
@@ -203,7 +211,7 @@ const StudentPage = () => {
             initialValues={getInitValueModal()}>
             <Row justify="center">
                 <Col span={12}>
-                    <Image setImage={setImage} url={urlAvatar} setUrl={setUrlAvatar}/>
+                    <Image setImage={setImage} url={urlAvatar} setUrl={setUrlAvatar} disabled={false}/>
                 </Col>
             </Row>
             <Row>
@@ -411,6 +419,7 @@ const StudentPage = () => {
                    scroll={{y: 520}} pagination={
                 {
                     size: "small",
+                    current: param.page,
                     total: totalItems,
                     showSizeChanger: true,
                     showQuickJumper: true,
@@ -420,6 +429,7 @@ const StudentPage = () => {
                 }
             }/>
             {hasShowModal && modal()}
+            {hasShowModal && <DeleteModal showModal={showModal} getInitValueModal={getInitValueModal} urlAvatar={urlAvatar} action={action} param={param}/>}
         </Card>
     );
 };

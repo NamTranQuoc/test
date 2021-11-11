@@ -47,5 +47,8 @@
     "admin.user.form.dob": "Vui lòng nhập ngày sinh",
     "admin.user.form.email": "Vui lòng nhập email",
     "admin.user.form.student.title": "Thông tin học viên",
-    "admin.user.form.save": "Lưu"
+    "admin.user.form.save": "Lưu",
+    "admin.user.form.edit": "Chỉnh sửa",
+    "admin.user.form.delete": "Xóa",
+    "admin.user.form.cancel": "Hủy"
 }

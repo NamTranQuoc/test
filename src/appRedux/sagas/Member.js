@@ -1,5 +1,5 @@
 import {all, call, fork, put, takeEvery} from "redux-saga/effects";
-import {ADD_MEMBER, GET_MEMBER, UPDATE_MEMBER} from "../../constants/ActionTypes";
+import {ADD_MEMBER, DELETE_MEMBER, GET_MEMBER, UPDATE_MEMBER} from "../../constants/ActionTypes";
 import axios from "axios";
 import {host} from "../store/Host";
 import {
@@ -66,6 +66,16 @@ const updateMemberRequest = async (payload) =>
     }).then(response => response)
         .catch(error => error)
 
+const deleteMemberRequest = async (payload) =>
+    await axios({
+        method: "DELETE",
+        url: `${INSTRUCTOR_API_URL}/delete/` + payload.id,
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+    }).then(response => response)
+        .catch(error => error)
+
 function* getListMemberGenerate({payload}) {
     try {
         const response = yield call(getListMemberRequest, payload);
@@ -112,22 +122,32 @@ function* addMemberGenerate({payload}) {
 function* updateMemberGenerate({payload}) {
     yield put(showLoader());
     try {
-        const response = yield call(updateMemberRequest, payload);
+        const response = yield call(updateMemberRequest, payload.member);
         if (response.data.code !== 9999) {
             yield put(showMessage(response.data.message));
         } else {
-            yield put(uploadImage(payload.avatar, response.data.payload.avatar));
+            yield put(uploadImage(payload.member.avatar, response.data.payload.avatar));
             yield put(onHideModal());
-            yield put(getListMemberAction({
-                page: 1,
-                size: 10,
-                sort: {
-                    is_asc: false,
-                    field: "_id"
-                },
-                types: [response.data.payload.type],
-            }));
+            yield put(getListMemberAction(payload.param));
             yield put(showMessage("success_update"));
+        }
+    } catch (error) {
+        yield put(showMessage(error));
+    } finally {
+        yield put(hideLoader());
+    }
+}
+
+function* deleteMemberGenerate({payload}) {
+    yield put(showLoader());
+    try {
+        const response = yield call(deleteMemberRequest, payload);
+        if (response.data.code !== 9999) {
+            yield put(showMessage(response.data.message));
+        } else {
+            yield put(onHideModal());
+            yield put(getListMemberAction(payload.param));
+            yield put(showMessage("success_delete"));
         }
     } catch (error) {
         yield put(showMessage(error));
@@ -148,10 +168,15 @@ export function* updateMember() {
     yield takeEvery(UPDATE_MEMBER, updateMemberGenerate);
 }
 
+export function* deleteMember() {
+    yield takeEvery(DELETE_MEMBER, deleteMemberGenerate);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(getListMember),
         fork(addMember),
         fork(updateMember),
+        fork(deleteMember),
     ]);
 }

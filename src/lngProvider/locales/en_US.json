@@ -47,5 +47,8 @@
     "admin.user.form.dob": "Please enter day of birth",
     "admin.user.form.email": "Please enter email",
     "admin.user.form.student.title": "Student information",
-    "admin.user.form.save": "Save"
+    "admin.user.form.save": "Save",
+    "admin.user.form.edit": "Edit",
+    "admin.user.form.delete": "Delete",
+    "admin.user.form.cancel": "Cancel"
 }

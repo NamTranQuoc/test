@@ -25,6 +25,7 @@ export const GET_MEMBER = 'GET_MEMBER';
 export const GET_LIST_SUCCESS = 'GET_LIST_SUCCESS';
 export const ADD_MEMBER = 'ADD_MEMBER';
 export const UPDATE_MEMBER = 'UPDATE_MEMBER';
+export const DELETE_MEMBER = 'DELETE_MEMBER';
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
