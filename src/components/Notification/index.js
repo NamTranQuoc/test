@@ -27,6 +27,10 @@ const errors = {
         message: <IntlMessages id="notification.success_add"/>,
         type: "success",
     },
+    success_update: {
+        message: <IntlMessages id="notification.success_update"/>,
+        type: "success",
+    },
     type_deny: {
         message: <IntlMessages id="notification.type_deny"/>,
         type: "error",
@@ -38,21 +42,24 @@ const errors = {
 };
 
 export function createNotification(message) {
-    console.error(message);
-    if (errors[message] === null) {
-        return NotificationManager.error(message);
-    } else {
-        switch (errors[message].type) {
-            case "info":
-                return NotificationManager.info(errors[message].message);
-            case "success":
-                return NotificationManager.success(errors[message].message);
-            case "warning":
-                return NotificationManager.warning(errors[message].message);
-            case "error":
-                return NotificationManager.error(errors[message].message);
-            default:
-                return NotificationManager.error(errors[message].message);
+    try {
+        if (!errors.hasOwnProperty(message)) {
+            return NotificationManager.error(message);
+        } else {
+            switch (errors[message].type) {
+                case "info":
+                    return NotificationManager.info(errors[message].message);
+                case "success":
+                    return NotificationManager.success(errors[message].message);
+                case "warning":
+                    return NotificationManager.warning(errors[message].message);
+                case "error":
+                    return NotificationManager.error(errors[message].message);
+                default:
+                    return NotificationManager.error(errors[message].message);
+            }
         }
+    } catch (e) {
+        return NotificationManager.error(e);
     }
 }

@@ -2,7 +2,14 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Col, DatePicker, Dropdown, Form, Input, Menu, Modal, Row, Select, Table} from "antd";
 import IntlMessages from "../../../../util/IntlMessages";
 import {useDispatch, useSelector} from "react-redux";
-import {addMember, getListMember, onHideModal, onSelectIndex, onShowModal} from "../../../../appRedux/actions";
+import {
+    addMember,
+    getListMember,
+    onHideModal,
+    onSelectIndex,
+    onShowModal,
+    updateMember
+} from "../../../../appRedux/actions";
 import {getDate, getGender, getImageURL} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
@@ -110,13 +117,25 @@ const StudentPage = () => {
     }
 
     function onSubmit(member) {
-        member = {
-            ...member,
-            dob: member.dob.unix() * 1000,
-            type: "student",
-            avatar: image
+        if (selectIndex !== -1) {
+            member = {
+                ...member,
+                _id: items[selectIndex]._id,
+                dob: member.dob.unix() * 1000,
+                type: "student",
+                avatar: image
+            }
+            dispatch(updateMember(member));
+        } else {
+            member = {
+                ...member,
+                dob: member.dob.unix() * 1000,
+                type: "student",
+                avatar: image
+            }
+            dispatch(addMember(member));
         }
-        dispatch(addMember(member));
+
     }
 
     function showModal() {
@@ -131,11 +150,13 @@ const StudentPage = () => {
 
     const getInitValueModal = () => {
         if (selectIndex !== -1 && items != null && items.length > selectIndex) {
-            getImageURL(items[selectIndex].avatar).then(value => {
-                if (value !== "") {
-                    setUrlAvatar(value);
-                }
-            });
+            if (urlAvatar == null) {
+                getImageURL(items[selectIndex].avatar).then(value => {
+                    if (value !== "") {
+                        setUrlAvatar(value);
+                    }
+                });
+            }
             return {
                 name: items[selectIndex].name,
                 gender: items[selectIndex].gender,
@@ -266,7 +287,7 @@ const StudentPage = () => {
                                 type: "email"
                             },
                         ]}>
-                        <Input placeholder="nguyenvan@gmail.com"/>
+                        <Input placeholder="nguyenvan@gmail.com" disabled={selectIndex !== -1}/>
                     </Form.Item>
                 </Col>
             </Row>

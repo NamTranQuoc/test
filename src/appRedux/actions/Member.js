@@ -1,4 +1,10 @@
-import {ADD_MEMBER, GET_LIST_SUCCESS, GET_MEMBER, ON_HIDE_LOADER_TABLE} from "../../constants/ActionTypes";
+import {
+    ADD_MEMBER,
+    GET_LIST_SUCCESS,
+    GET_MEMBER,
+    ON_HIDE_LOADER_TABLE,
+    UPDATE_MEMBER
+} from "../../constants/ActionTypes";
 
 export const getListMember = (param) => {
     return {
@@ -22,9 +28,15 @@ export const hideLoaderTable = () => {
 };
 
 export const addMember = (member) => {
-    console.log("action");
     return {
         type: ADD_MEMBER,
+        payload: member
+    };
+};
+
+export const updateMember = (member) => {
+    return {
+        type: UPDATE_MEMBER,
         payload: member
     };
 };

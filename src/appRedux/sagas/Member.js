@@ -1,5 +1,5 @@
 import {all, call, fork, put, takeEvery} from "redux-saga/effects";
-import {ADD_MEMBER, GET_MEMBER} from "../../constants/ActionTypes";
+import {ADD_MEMBER, GET_MEMBER, UPDATE_MEMBER} from "../../constants/ActionTypes";
 import axios from "axios";
 import {host} from "../store/Host";
 import {
@@ -46,6 +46,26 @@ const addMemberRequest = async (payload) =>
     }).then(response => response)
         .catch(error => error)
 
+const updateMemberRequest = async (payload) =>
+    await axios({
+        method: "PUT",
+        url: `${INSTRUCTOR_API_URL}/update/`,
+        data: {
+            id: payload._id,
+            name: payload.name,
+            gender: payload.gender,
+            phone_number: payload.phone_number,
+            address: payload.address,
+            dob: payload.dob,
+            salary: payload.salary,
+            certificate: payload.certificate,
+        },
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem('token'),
+        },
+    }).then(response => response)
+        .catch(error => error)
+
 function* getListMemberGenerate({payload}) {
     try {
         const response = yield call(getListMemberRequest, payload);
@@ -78,9 +98,36 @@ function* addMemberGenerate({payload}) {
                     is_asc: false,
                     field: "_id"
                 },
-                types: ["student"],
+                types: [response.data.payload.type],
             }));
             yield put(showMessage("success_add"));
+        }
+    } catch (error) {
+        yield put(showMessage(error));
+    } finally {
+        yield put(hideLoader());
+    }
+}
+
+function* updateMemberGenerate({payload}) {
+    yield put(showLoader());
+    try {
+        const response = yield call(updateMemberRequest, payload);
+        if (response.data.code !== 9999) {
+            yield put(showMessage(response.data.message));
+        } else {
+            yield put(uploadImage(payload.avatar, response.data.payload.avatar));
+            yield put(onHideModal());
+            yield put(getListMemberAction({
+                page: 1,
+                size: 10,
+                sort: {
+                    is_asc: false,
+                    field: "_id"
+                },
+                types: [response.data.payload.type],
+            }));
+            yield put(showMessage("success_update"));
         }
     } catch (error) {
         yield put(showMessage(error));
@@ -97,9 +144,14 @@ export function* addMember() {
     yield takeEvery(ADD_MEMBER, addMemberGenerate);
 }
 
+export function* updateMember() {
+    yield takeEvery(UPDATE_MEMBER, updateMemberGenerate);
+}
+
 export default function* rootSaga() {
     yield all([
         fork(getListMember),
         fork(addMember),
+        fork(updateMember),
     ]);
 }

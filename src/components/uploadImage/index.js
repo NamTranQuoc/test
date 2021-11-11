@@ -4,7 +4,6 @@ import {Upload} from 'antd';
 import {createNotification} from "../Notification";
 
 function beforeUpload(file) {
-    console.log("beforeUpload");
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
         createNotification("type_deny");
