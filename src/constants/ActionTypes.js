@@ -27,5 +27,6 @@ export const ADD_MEMBER = 'ADD_MEMBER';
 export const UPLOAD_IMAGE = 'UPLOAD_IMAGE';
 export const SHOW_MODAL = 'SHOW_MODAL';
 export const HIDE_MODAL = 'HIDE_MODAL';
+export const SELECT_INDEX = 'SELECT_INDEX';
 
 

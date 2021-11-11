@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Col, DatePicker, Dropdown, Form, Input, Menu, Modal, Row, Select, Table} from "antd";
 import IntlMessages from "../../../../util/IntlMessages";
 import {useDispatch, useSelector} from "react-redux";
-import {addMember, getListMember, onHideModal, onShowModal} from "../../../../appRedux/actions";
-import {getDate, getGender} from "../../../../util/ParseUtils";
+import {addMember, getListMember, onHideModal, onSelectIndex, onShowModal} from "../../../../appRedux/actions";
+import {getDate, getGender, getImageURL} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
 import moment from 'moment';
@@ -27,18 +27,14 @@ let param = {
     genders: []
 }
 
-const options = [
-    'Edit',
-    'Delete',
-];
-
 const StudentPage = () => {
     const dispatch = useDispatch();
     const {loaderTable, items, totalItems} = useSelector(({getList}) => getList);
     const {locale} = useSelector(({settings}) => settings);
-    const {hasShowModal} = useSelector(({common}) => common);
+    const {hasShowModal, selectIndex} = useSelector(({common}) => common);
     const [style, setStyle] = useState("150px");
     const [image, setImage] = useState(null);
+    const [urlAvatar, setUrlAvatar] = useState(null);
 
     function onChange(pagination, filters, sorter) {
         if (sorter != null && sorter.columnKey != null && sorter.order != null) {
@@ -123,27 +119,170 @@ const StudentPage = () => {
         dispatch(addMember(member));
     }
 
-    const menus = () => (<Menu onClick={(e) => {
-        if (e.key === 'Edit') {
-            console.log("edit");
-        } else {
-            console.log("delete");
-        }
-    }}>
-        {options.map(option =>
-            <Menu.Item key={option}>
-                {option}
-            </Menu.Item>,
-        )}
-    </Menu>);
-
     function showModal() {
+        dispatch(onSelectIndex(-1));
+        setUrlAvatar(null);
         if (hasShowModal) {
             dispatch(onHideModal());
         } else {
             dispatch(onShowModal());
         }
     }
+
+    const getInitValueModal = () => {
+        if (selectIndex !== -1 && items != null && items.length > selectIndex) {
+            getImageURL(items[selectIndex].avatar).then(value => {
+                if (value !== "") {
+                    setUrlAvatar(value);
+                }
+            });
+            return {
+                name: items[selectIndex].name,
+                gender: items[selectIndex].gender,
+                phone_number: items[selectIndex].phone_number,
+                email: items[selectIndex].email,
+                dob: moment.unix(items[selectIndex].dob / 1000),
+                address: items[selectIndex].address
+            };
+        } else {
+            return {
+                gender: "male",
+                address: "",
+                dob: moment()
+            };
+        }
+    }
+
+    const menus = (index) => (<Menu onClick={(e) => {
+        if (e.key === 'delete') {
+            console.log("delete");
+        } else {
+            dispatch(onSelectIndex(index));
+            dispatch(onShowModal());
+        }
+    }}>
+        <Menu.Item key="edit">Edit</Menu.Item>
+        <Menu.Item key="delete">Delete</Menu.Item>
+    </Menu>);
+
+    const modal = () => (<Modal
+        title={<IntlMessages id="admin.user.form.student.title"/>}
+        visible={hasShowModal}
+        footer={
+            <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages
+                id="admin.user.form.save"/>}</Button>
+        }
+        onCancel={showModal}
+        bodyStyle={{overflowY: "scroll", height: "600px"}}
+        centered
+        width={600}>
+        <Form
+            onFinish={onSubmit}
+            id="add-edit-form"
+            initialValues={getInitValueModal()}>
+            <Row justify="center">
+                <Col span={12}>
+                    <Image setImage={setImage} url={urlAvatar} setUrl={setUrlAvatar}/>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12}>
+                    <Form.Item
+                        label={<IntlMessages id="admin.user.student.table.name"/>}
+                        labelCol={{span: 24}}
+                        wrapperCol={{span: 24}}
+                        name="name"
+                        rules={[
+                            {
+                                required: true,
+                                message: <IntlMessages id="admin.user.form.name"/>,
+                            },
+                        ]}>
+                        <Input placeholder="Nguyen Van A"/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item label={<IntlMessages id="admin.user.student.table.gender"/>}
+                               name="gender"
+                               labelCol={{span: 24}}
+                               wrapperCol={{span: 24}}
+                               rules={[
+                                   {
+                                       required: true,
+                                       message: <IntlMessages id="admin.user.form.gender"/>,
+                                   },
+                               ]}>
+                        <Select>
+                            <Select.Option value="male">{getGender("male")}</Select.Option>
+                            <Select.Option value="female">{getGender("female")}</Select.Option>
+                            <Select.Option value="other">{getGender("other")}</Select.Option>
+                        </Select>
+                    </Form.Item>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={12}>
+                    <Form.Item
+                        label={<IntlMessages id="admin.user.student.table.phoneNumber"/>}
+                        labelCol={{span: 24}}
+                        wrapperCol={{span: 24}}
+                        name="phone_number"
+                        rules={[
+                            {
+                                required: true,
+                                message: <IntlMessages id="admin.user.form.phoneNumber"/>,
+                            },
+                        ]}>
+                        <Input placeholder="0987654321"/>
+                    </Form.Item>
+                </Col>
+                <Col span={12}>
+                    <Form.Item
+                        label={<IntlMessages id="admin.user.student.table.dob"/>}
+                        labelCol={{span: 24}}
+                        wrapperCol={{span: 24}}
+                        name="dob"
+                        rules={[
+                            {
+                                required: true,
+                                message: <IntlMessages id="admin.user.form.dob"/>,
+                            },
+                        ]}>
+                        <DatePicker style={{width: "100%"}} format={'DD/MM/YYYY'}/>
+                    </Form.Item>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <Form.Item
+                        label={<IntlMessages id="admin.user.student.table.email"/>}
+                        labelCol={{span: 24}}
+                        wrapperCol={{span: 24}}
+                        name="email"
+                        rules={[
+                            {
+                                required: true,
+                                message: <IntlMessages id="admin.user.form.email"/>,
+                                type: "email"
+                            },
+                        ]}>
+                        <Input placeholder="nguyenvan@gmail.com"/>
+                    </Form.Item>
+                </Col>
+            </Row>
+            <Row>
+                <Col span={24}>
+                    <Form.Item
+                        label={<IntlMessages id="admin.user.student.table.address"/>}
+                        labelCol={{span: 24}}
+                        wrapperCol={{span: 24}}
+                        name="address">
+                        <Input.TextArea rows={4}/>
+                    </Form.Item>
+                </Col>
+            </Row>
+        </Form>
+    </Modal>);
 
     return (
         <Card title={<h2><IntlMessages id="admin.user.student.title"/></h2>}
@@ -235,9 +374,9 @@ const StudentPage = () => {
                            },
                            {
                                key: "action",
-                               dataIndex: "_id",
-                               render: (_id) => (<div>
-                                   <Dropdown overlay={menus} placement="bottomRight" trigger={['click']}>
+                               dataIndex: "index",
+                               render: (text, record, index) => (<div>
+                                   <Dropdown overlay={menus(index)} placement="bottomRight" trigger={['click']}>
                                        <i className="gx-icon-btn icon icon-ellipse-v"/>
                                    </Dropdown>
                                </div>),
@@ -259,127 +398,7 @@ const StudentPage = () => {
                     pageSizeOptions: ["10", "15", "20"]
                 }
             }/>
-            <Modal
-                title={<IntlMessages id="admin.user.form.student.title"/>}
-                visible={hasShowModal}
-                footer={
-                    <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages
-                        id="admin.user.form.save"/>}</Button>
-                }
-                onCancel={showModal}
-                bodyStyle={{overflowY: "scroll", height: "600px"}}
-                centered
-                width={600}>
-                <Form
-                    onFinish={onSubmit}
-                    id="add-edit-form"
-                    initialValues={{
-                        gender: "male",
-                        address: ""
-                    }}>
-                    <Row justify="center">
-                        <Col span={12}>
-                            <Image setImage={setImage}/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                label={<IntlMessages id="admin.user.student.table.name"/>}
-                                labelCol={{span: 24}}
-                                wrapperCol={{span: 24}}
-                                name="name"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <IntlMessages id="admin.user.form.name"/>,
-                                    },
-                                ]}>
-                                <Input placeholder="Nguyen Van A"/>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item label={<IntlMessages id="admin.user.student.table.gender"/>}
-                                       name="gender"
-                                       labelCol={{span: 24}}
-                                       wrapperCol={{span: 24}}
-                                       rules={[
-                                           {
-                                               required: true,
-                                               message: <IntlMessages id="admin.user.form.gender"/>,
-                                           },
-                                       ]}>
-                                <Select>
-                                    <Select.Option value="male">{getGender("male")}</Select.Option>
-                                    <Select.Option value="female">{getGender("female")}</Select.Option>
-                                    <Select.Option value="other">{getGender("other")}</Select.Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={12}>
-                            <Form.Item
-                                label={<IntlMessages id="admin.user.student.table.phoneNumber"/>}
-                                labelCol={{span: 24}}
-                                wrapperCol={{span: 24}}
-                                name="phone_number"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <IntlMessages id="admin.user.form.phoneNumber"/>,
-                                    },
-                                ]}>
-                                <Input placeholder="0987654321"/>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item
-                                label={<IntlMessages id="admin.user.student.table.dob"/>}
-                                labelCol={{span: 24}}
-                                wrapperCol={{span: 24}}
-                                name="dob"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <IntlMessages id="admin.user.form.dob"/>,
-                                    },
-                                ]}>
-                                <DatePicker style={{width: "100%"}}/>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <Form.Item
-                                label={<IntlMessages id="admin.user.student.table.email"/>}
-                                labelCol={{span: 24}}
-                                wrapperCol={{span: 24}}
-                                name="email"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: <IntlMessages id="admin.user.form.email"/>,
-                                        type: "email"
-                                    },
-                                ]}>
-                                <Input placeholder="nguyenvan@gmail.com"/>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col span={24}>
-                            <Form.Item
-                                label={<IntlMessages id="admin.user.student.table.address"/>}
-                                labelCol={{span: 24}}
-                                wrapperCol={{span: 24}}
-                                name="address">
-                                <Input.TextArea rows={4}/>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                </Form>
-            </Modal>
+            {hasShowModal && modal()}
         </Card>
     );
 };

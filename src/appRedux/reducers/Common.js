@@ -2,7 +2,7 @@ import {
     HIDE_MESSAGE, HIDE_MODAL,
     INIT_URL,
     ON_HIDE_LOADER,
-    ON_SHOW_LOADER,
+    ON_SHOW_LOADER, SELECT_INDEX,
     SHOW_MESSAGE,
     SHOW_MODAL,
 } from '../../constants/ActionTypes'
@@ -14,6 +14,7 @@ const INIT_STATE = {
     width: window.innerWidth,
     pathname: '/',
     hasShowModal: false,
+    selectIndex: -1
 };
 
 const CommonReducer = (state = INIT_STATE, action) => {
@@ -59,6 +60,12 @@ const CommonReducer = (state = INIT_STATE, action) => {
             return {
                 ...state,
                 hasShowModal: false
+            }
+        }
+        case SELECT_INDEX: {
+            return {
+                ...state,
+                selectIndex: action.payload
             }
         }
         default:

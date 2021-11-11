@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './index.css';
 import {Upload} from 'antd';
 import {createNotification} from "../Notification";
@@ -23,8 +23,6 @@ const dummyRequest = ({file, onSuccess}) => {
 };
 
 function Image(props) {
-    const [url, setUrl] = useState(null);
-
     return (
         <Upload
             name="avatar"
@@ -35,13 +33,13 @@ function Image(props) {
                 let reader = new FileReader();
                 props.setImage(file);
                 reader.onloadend = () => {
-                    setUrl(reader.result.toString());
+                    props.setUrl(reader.result.toString());
                 };
                 reader.readAsDataURL(file);
             }}
             beforeUpload={beforeUpload}
             customRequest={dummyRequest}>
-            {url != null ? <img src={url} alt="avatar" style={{width: '95%'}}/> : "Upload"}
+            {props.url != null ? <img src={props.url} alt="avatar" style={{width: '95%'}}/> : "Upload"}
         </Upload>
     );
 }
