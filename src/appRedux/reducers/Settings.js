@@ -5,15 +5,14 @@ import {
     NAV_STYLE,
     NAV_STYLE_FIXED,
     THEME_COLOR,
-    THEME_TYPE,
-    THEME_TYPE_SEMI_DARK,
+    THEME_TYPE, THEME_TYPE_LITE,
     UPDATE_RTL_STATUS
 } from "../../constants/ThemeSetting";
 
 const initialSettings = {
     navStyle: NAV_STYLE_FIXED,
     layoutType: LAYOUT_TYPE_FULL,
-    themeType: THEME_TYPE_SEMI_DARK,
+    themeType: THEME_TYPE_LITE,
     themeColor: '',
 
     isDirectionRTL: false,

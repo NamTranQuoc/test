@@ -7,6 +7,7 @@ import {getDate, getGender} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
 import moment from 'moment';
+import "./index.css";
 
 moment.updateLocale('vi', {
     weekdaysMin: ["Cn", "T2", "T3", "T4", "T5", "T6", "T7"],
@@ -266,7 +267,9 @@ const StudentPage = () => {
                         id="admin.user.form.save"/>}</Button>
                 }
                 onCancel={showModal}
-            >
+                bodyStyle={{overflowY: "scroll", height: "600px"}}
+                centered
+                width={600}>
                 <Form
                     onFinish={onSubmit}
                     id="add-edit-form"
@@ -291,8 +294,7 @@ const StudentPage = () => {
                                         required: true,
                                         message: <IntlMessages id="admin.user.form.name"/>,
                                     },
-                                ]}
-                            >
+                                ]}>
                                 <Input placeholder="Nguyen Van A"/>
                             </Form.Item>
                         </Col>
@@ -314,6 +316,8 @@ const StudentPage = () => {
                                 </Select>
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row>
                         <Col span={12}>
                             <Form.Item
                                 label={<IntlMessages id="admin.user.student.table.phoneNumber"/>}
@@ -325,8 +329,7 @@ const StudentPage = () => {
                                         required: true,
                                         message: <IntlMessages id="admin.user.form.phoneNumber"/>,
                                     },
-                                ]}
-                            >
+                                ]}>
                                 <Input placeholder="0987654321"/>
                             </Form.Item>
                         </Col>
@@ -345,6 +348,8 @@ const StudentPage = () => {
                                 <DatePicker style={{width: "100%"}}/>
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row>
                         <Col span={24}>
                             <Form.Item
                                 label={<IntlMessages id="admin.user.student.table.email"/>}
@@ -357,11 +362,12 @@ const StudentPage = () => {
                                         message: <IntlMessages id="admin.user.form.email"/>,
                                         type: "email"
                                     },
-                                ]}
-                            >
+                                ]}>
                                 <Input placeholder="nguyenvan@gmail.com"/>
                             </Form.Item>
                         </Col>
+                    </Row>
+                    <Row>
                         <Col span={24}>
                             <Form.Item
                                 label={<IntlMessages id="admin.user.student.table.address"/>}
