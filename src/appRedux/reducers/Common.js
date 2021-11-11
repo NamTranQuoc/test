@@ -1,4 +1,11 @@
-import {HIDE_MESSAGE, INIT_URL, ON_HIDE_LOADER, ON_SHOW_LOADER, SHOW_MESSAGE,} from '../../constants/ActionTypes'
+import {
+    HIDE_MESSAGE, HIDE_MODAL,
+    INIT_URL,
+    ON_HIDE_LOADER,
+    ON_SHOW_LOADER,
+    SHOW_MESSAGE,
+    SHOW_MODAL,
+} from '../../constants/ActionTypes'
 
 const INIT_STATE = {
     loading: false,
@@ -6,6 +13,7 @@ const INIT_STATE = {
     navCollapsed: true,
     width: window.innerWidth,
     pathname: '/',
+    hasShowModal: false,
 };
 
 const CommonReducer = (state = INIT_STATE, action) => {
@@ -39,6 +47,18 @@ const CommonReducer = (state = INIT_STATE, action) => {
             return {
                 ...state,
                 loading: false
+            }
+        }
+        case SHOW_MODAL: {
+            return {
+                ...state,
+                hasShowModal: true
+            }
+        }
+        case HIDE_MODAL: {
+            return {
+                ...state,
+                hasShowModal: false
             }
         }
         default:

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Card, Col, DatePicker, Dropdown, Form, Input, Menu, Modal, Row, Select, Table} from "antd";
 import IntlMessages from "../../../../util/IntlMessages";
 import {useDispatch, useSelector} from "react-redux";
-import {addMember, getListMember} from "../../../../appRedux/actions";
+import {addMember, getListMember, onHideModal, onShowModal} from "../../../../appRedux/actions";
 import {getDate, getGender} from "../../../../util/ParseUtils";
 import {PlusOutlined, SearchOutlined} from "@ant-design/icons";
 import Image from "../../../../components/uploadImage";
@@ -35,7 +35,7 @@ const StudentPage = () => {
     const dispatch = useDispatch();
     const {loaderTable, items, totalItems} = useSelector(({getList}) => getList);
     const {locale} = useSelector(({settings}) => settings);
-    const [showModal, setShowModal] = useState(false);
+    const {hasShowModal} = useSelector(({common}) => common);
     const [style, setStyle] = useState("150px");
     const [image, setImage] = useState(null);
 
@@ -70,12 +70,7 @@ const StudentPage = () => {
         if (items.length === 0) {
             dispatch(getListMember(param));
         }
-        setShowModal(false);
     }, []);
-
-    useEffect(() => {
-        setShowModal(false);
-    }, [items]);
 
     function showTotalItems(total) {
         return <span><IntlMessages id="table.total.items"/>: {total}</span>;
@@ -117,10 +112,6 @@ const StudentPage = () => {
         }
     }
 
-    function onShow() {
-        setShowModal(!showModal);
-    }
-
     function onSubmit(member) {
         member = {
             ...member,
@@ -137,14 +128,21 @@ const StudentPage = () => {
         } else {
             console.log("delete");
         }
-    }
-    }>
+    }}>
         {options.map(option =>
             <Menu.Item key={option}>
                 {option}
             </Menu.Item>,
         )}
     </Menu>);
+
+    function showModal() {
+        if (hasShowModal) {
+            dispatch(onHideModal());
+        } else {
+            dispatch(onShowModal());
+        }
+    }
 
     return (
         <Card title={<h2><IntlMessages id="admin.user.student.title"/></h2>}
@@ -153,7 +151,7 @@ const StudentPage = () => {
                              icon={<PlusOutlined/>}
                              size="large"
                              style={{float: "right"}}
-                             onClick={onShow}/>}
+                             onClick={showModal}/>}
               className="gx-card">
             <Form layout="inline" style={{marginBottom: "10px", marginTop: "10px"}}>
                 <Form.Item label={<IntlMessages id="admin.user.student.table.gender"/>}
@@ -262,12 +260,12 @@ const StudentPage = () => {
             }/>
             <Modal
                 title={<IntlMessages id="admin.user.form.student.title"/>}
-                visible={showModal}
+                visible={hasShowModal}
                 footer={
                     <Button type="primary" form="add-edit-form" htmlType="submit">{<IntlMessages
                         id="admin.user.form.save"/>}</Button>
                 }
-                onCancel={onShow}
+                onCancel={showModal}
             >
                 <Form
                     onFinish={onSubmit}

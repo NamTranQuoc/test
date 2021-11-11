@@ -1,10 +1,10 @@
 import {
     CLEAR_ITEMS,
-    HIDE_MESSAGE,
+    HIDE_MESSAGE, HIDE_MODAL,
     INIT_URL,
     ON_HIDE_LOADER,
     ON_SHOW_LOADER,
-    SHOW_MESSAGE, UPLOAD_IMAGE,
+    SHOW_MESSAGE, SHOW_MODAL, UPLOAD_IMAGE,
 } from "../../constants/ActionTypes";
 
 export const showMessage = (message) => {
@@ -55,6 +55,17 @@ export const uploadImage = (image, path) => {
     }
 }
 
+export const onShowModal = () => {
+    return {
+        type: SHOW_MODAL
+    }
+}
+
+export const onHideModal = () => {
+    return {
+        type: HIDE_MODAL
+    }
+}
 
 
 

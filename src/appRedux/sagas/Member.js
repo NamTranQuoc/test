@@ -9,7 +9,7 @@ import {
     showLoader,
     showMessage,
     getListMember as getListMemberAction,
-    uploadImage
+    uploadImage, onHideModal
 } from "../actions";
 
 const INSTRUCTOR_API_URL = `${host}/member`;
@@ -70,6 +70,7 @@ function* addMemberGenerate({payload}) {
             yield put(showMessage(response.data.message));
         } else {
             yield put(uploadImage(payload.avatar, response.data.payload.avatar));
+            yield put(onHideModal());
             yield put(getListMemberAction({
                 page: 1,
                 size: 10,
