@@ -1,3 +1,12 @@
 .ant-col-24.ant-form-item-label {
     padding-left: 16px;
 }
+
+.gx-card .ant-card-head {
+    border-bottom: ridge;
+    height: 70px;
+}
+
+.gx-card .ant-card-head-title {
+    padding-top: 0;
+}
